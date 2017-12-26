@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
 const Sidebar = function (props) {
   const cellPhone = encodeURIComponent('Cell Phone');
@@ -16,4 +16,4 @@ const Sidebar = function (props) {
   );
 };
 
-export default Sidebar;
+export default withRouter(Sidebar)

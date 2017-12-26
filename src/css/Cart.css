@@ -1,7 +1,18 @@
 .shopping-cart .card-header {
-  background-color: #009688;
   color: rgba(230, 230, 230, 0.85);
-  padding: .75rem 1rem .5rem;
+  padding: 0;
+  border-bottom: 1px solid #00675b;
+}
+.shopping-cart .card-header .top-part {
+  height: 20px;
+  background-color: #00675b;
+}
+.shopping-cart .card-header .cart-title {
+  padding: .75rem 0 .95rem 1.4rem;
+  margin: 0;
+  line-height: 1;
+  text-align: left;
+  background-color: #009688;
 }
 .quantity-row .quantity {
   border: 1px solid #009688;

@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import 'react-popper';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,14 +11,9 @@ import './index.css';
 import history from './history';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-// import { createLogger } from 'redux-logger';
-import thunk from 'redux-thunk';
 import reducer from './reducers';
 import { loadAllProducts } from './actions/products';
-
+// import { createLogger } from 'redux-logger';
 
 import Auth from './AuthService/Auth';
 
@@ -26,8 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = createStore(reducer, applyMiddleware(...middleware));
 Auth.checkAndInitializeLoginStatus(store.dispatch);
-// store.dispatch(changeLoginStatus(Auth.isAuthenticated()));
-// store.dispatch(loadAllProducts());
+store.dispatch(loadAllProducts());
 // store.dispatch(loadAllOrders());
 
 const app = (

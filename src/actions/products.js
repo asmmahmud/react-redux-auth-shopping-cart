@@ -1,11 +1,9 @@
 import axios from 'axios';
 import Auth from '../AuthService/Auth';
 import {showTheAlert, showInitializingAlert, closeTheAlert} from './alert';
-import {addToCart} from './cart';
-// import { addToCart } from './cart';
 import {ACTIONS} from './types';
 
-export const loadAllProducts = (category = '', brand = '', sort = 'brand', sortOrder = 'asc') => (dispatch, getState) => {
+export const loadAllProducts = (sort = 'brand', sortOrder = 'asc') => (dispatch) => {
   let query;
   if (sort) {
     query = 'sort=' + sort;
@@ -13,15 +11,8 @@ export const loadAllProducts = (category = '', brand = '', sort = 'brand', sortO
       query += '&sorder=' + sortOrder;
     }
   }
-  if (category) {
-    query += '&category=' + encodeURIComponent(category);
-  }
-  if (brand) {
-    query += '&brand=' + encodeURIComponent(brand);
-  }
 
   const API_URL = `http://localhost:3002/api/products?${query}`;
-  console.log(API_URL);
   dispatch(showInitializingAlert());
   axios
     .get(API_URL)
@@ -31,15 +22,19 @@ export const loadAllProducts = (category = '', brand = '', sort = 'brand', sortO
         loadedProducts: response.data
       });
       dispatch(closeTheAlert());
-      console.log(response.data);
-     // dispatch(addToCart("5a393c159ec108198cbbb101"));
+      //console.log(response.data);
     })
     .catch(error => {
       console.log(error);
       dispatch(showTheAlert(error.message, 'danger'));
     });
 };
-
+export const setProductFilter = (filters) => {
+  return {
+    type: ACTIONS.SET_PRODUCT_FILTERS,
+    filters
+  };
+}
 export const submitNewProduct = productData => dispatch => {
   const accessToken = Auth.getAccessToken();
   console.log('submitNewProduct', productData);
@@ -67,14 +62,3 @@ export const submitNewProduct = productData => dispatch => {
     });
 };
 
-export const submitNewProductMocked = productData => dispatch => {
-  dispatch({
-    type: ACTIONS.SUBMIT_NEW_PRODUCT
-  });
-  setTimeout(() => {
-    dispatch({
-      type: ACTIONS.NEW_PRODUCT_FAILED
-    });
-    dispatch(showTheAlert('Error', 'danger'));
-  }, 2000);
-};

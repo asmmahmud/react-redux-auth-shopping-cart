@@ -99,7 +99,8 @@ class Cart extends React.PureComponent {
             {progressReport}
             <div className="card shopping-cart">
               <div className="card-header">
-                <h5>Shopping Cart ({this.props.cartItemCount} Items)</h5>
+                <div className='top-part' />
+                <h5 className="cart-title">Shopping Cart ({this.props.cartItemCount} Items)</h5>
               </div>
               <div className="card-body">{content}</div>
             </div>

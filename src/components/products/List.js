@@ -5,7 +5,7 @@ const Product = function (props) {
   const list = Object.keys(props.product)
     .filter(
       key =>
-        key !== 'name' && key !== '_id' && key !== 'createdAt' && key !== '__v'
+        key!== 'productId' && key !== 'name' && key !== 'category' && key !== '_id' && key !== 'createdAt' && key !== '__v'
     )
     .map(key => {
       return (
