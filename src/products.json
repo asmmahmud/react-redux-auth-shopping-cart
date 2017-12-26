@@ -1,0 +1,189 @@
+{
+  "5a3939ac5ce89c2d141e5b9d": {
+    "_id": "5a3939ac5ce89c2d141e5b9d",
+    "name": "Apple iPhone X",
+    "category": "Cell Phone",
+    "brand": "Apple",
+    "model": "iPhone X",
+    "price": 999,
+    "quantity": 14,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:09:16.778Z"
+  },
+  "5a393dbbc79b0407a0aefa34": {
+    "_id": "5a393dbbc79b0407a0aefa34",
+    "name": " Apple iPhone 8",
+    "category": "Cell Phone",
+    "brand": "Apple",
+    "model": "iPhone 8",
+    "price": 849,
+    "quantity": 10,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:26:35.322Z"
+  },
+  "5a393bae9ec108198cbbb100": {
+    "_id": "5a393bae9ec108198cbbb100",
+    "name": "Google Pixel 2 XL",
+    "category": "Cell Phone",
+    "brand": "Google",
+    "model": "XL",
+    "price": 649.99,
+    "quantity": 10,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:17:50.064Z"
+  },
+  "5a3fd9d85b36df0ff4a4d43d": {
+    "_id": "5a3fd9d85b36df0ff4a4d43d",
+    "name": "Google Pixel XL",
+    "category": "Cell Phone",
+    "brand": "Google",
+    "model": "Pixel XL",
+    "price": 414.99,
+    "quantity": 11,
+    "__v": 0,
+    "createdAt": "2017-12-24T16:46:16.476Z"
+  },
+  "5a3fda795b36df0ff4a4d43e": {
+    "_id": "5a3fda795b36df0ff4a4d43e",
+    "name": "HTC U11",
+    "category": "Cell Phone",
+    "brand": "HTC",
+    "model": "U11",
+    "price": 572.97,
+    "quantity": 11,
+    "__v": 0,
+    "createdAt": "2017-12-24T16:48:57.079Z"
+  },
+  "5a393c159ec108198cbbb101": {
+    "_id": "5a393c159ec108198cbbb101",
+    "name": "LG V30",
+    "category": "Cell Phone",
+    "brand": "LG",
+    "model": "V30",
+    "price": 800,
+    "quantity": 9,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:19:33.719Z"
+  },
+  "5a3fdad75b36df0ff4a4d43f": {
+    "_id": "5a3fdad75b36df0ff4a4d43f",
+    "name": "LG G6",
+    "category": "Cell Phone",
+    "brand": "LG",
+    "model": "G6",
+    "price": 518,
+    "quantity": 15,
+    "__v": 0,
+    "createdAt": "2017-12-24T16:50:31.295Z"
+  },
+  "5a393eeac79b0407a0aefa35": {
+    "_id": "5a393eeac79b0407a0aefa35",
+    "name": "Motorola Moto Z2",
+    "category": "Cell Phone",
+    "brand": "Motorola",
+    "model": "Moto Z2",
+    "price": 399,
+    "quantity": 14,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:31:38.340Z"
+  },
+  "5a3fddad5b36df0ff4a4d441": {
+    "_id": "5a3fddad5b36df0ff4a4d441",
+    "name": "Motorola Moto G5 Plus",
+    "category": "Cell Phone",
+    "brand": "Motorola",
+    "model": "Moto G5 Plus",
+    "price": 184.99,
+    "quantity": 23,
+    "__v": 0,
+    "createdAt": "2017-12-24T17:02:37.189Z"
+  },
+  "5a3fdddb5b36df0ff4a4d442": {
+    "_id": "5a3fdddb5b36df0ff4a4d442",
+    "name": "Motorola Moto E4",
+    "category": "Cell Phone",
+    "brand": "Motorola",
+    "model": "Moto E4",
+    "price": 129.99,
+    "quantity": 11,
+    "__v": 0,
+    "createdAt": "2017-12-24T17:03:23.062Z"
+  },
+  "5a3bda53bd3dbe14642e9730": {
+    "_id": "5a3bda53bd3dbe14642e9730",
+    "name": "OnePlus 5T",
+    "category": "Cell Phone",
+    "brand": "OnePlus",
+    "model": "Midnight Black",
+    "price": 499,
+    "quantity": 5,
+    "__v": 0,
+    "createdAt": "2017-12-21T15:59:15.009Z"
+  },
+  "5a3938b05ce89c2d141e5b9c": {
+    "_id": "5a3938b05ce89c2d141e5b9c",
+    "name": "Samsung Galaxy S8",
+    "category": "Cell Phone",
+    "brand": "Samsung",
+    "model": "S8",
+    "price": 849.99,
+    "quantity": 10,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:05:04.991Z"
+  },
+  "5a393c609ec108198cbbb102": {
+    "_id": "5a393c609ec108198cbbb102",
+    "name": "Samsung Galaxy Note 8",
+    "category": "Cell Phone",
+    "brand": "Samsung",
+    "model": "Note 8",
+    "price": 896.54,
+    "quantity": 10,
+    "__v": 0,
+    "createdAt": "2017-12-19T16:20:48.622Z"
+  },
+  "5a3fd90b5b36df0ff4a4d43c": {
+    "_id": "5a3fd90b5b36df0ff4a4d43c",
+    "name": "Samsung Galaxy S7",
+    "category": "Cell Phone",
+    "brand": "Samsung",
+    "model": "Galaxy S7",
+    "price": 448,
+    "quantity": 17,
+    "__v": 0,
+    "createdAt": "2017-12-24T16:42:51.050Z"
+  },
+  "5a3fdd255b36df0ff4a4d440": {
+    "_id": "5a3fdd255b36df0ff4a4d440",
+    "name": "Sony Xperia XZ1 Compact",
+    "category": "Cell Phone",
+    "brand": "Sony",
+    "model": "XZ1 Compact",
+    "price": 599.99,
+    "quantity": 13,
+    "__v": 0,
+    "createdAt": "2017-12-24T17:00:21.189Z"
+  },
+  "5a40577de080680324a5f8a8": {
+    "_id": "5a40577de080680324a5f8a8",
+    "name": "Sony Xperia R1 (Plus)",
+    "category": "Cell Phone",
+    "brand": "Sony",
+    "model": "R1 (Plus)",
+    "price": 218.68,
+    "quantity": 11,
+    "__v": 0,
+    "createdAt": "2017-12-25T01:42:21.257Z"
+  },
+  "5a3fde195b36df0ff4a4d443": {
+    "_id": "5a3fde195b36df0ff4a4d443",
+    "name": "ZTE Blade Z Max",
+    "category": "Cell Phone",
+    "brand": "ZTE",
+    "model": "Z Max",
+    "price": 129,
+    "quantity": 11,
+    "__v": 0,
+    "createdAt": "2017-12-24T17:04:25.341Z"
+  }
+}

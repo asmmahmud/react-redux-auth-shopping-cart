@@ -1,0 +1,18 @@
+.shopping-cart .card-header {
+  background-color: #009688;
+  color: rgba(230, 230, 230, 0.85);
+  padding: .75rem 1rem .5rem;
+}
+.quantity-row .quantity {
+  border: 1px solid #009688;
+  padding: 0 10px;
+  display: inline-block;
+  margin: auto 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.decrement,
+.increment {
+  padding: 0 5px;
+}

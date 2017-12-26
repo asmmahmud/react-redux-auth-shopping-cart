@@ -1,0 +1,16 @@
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+button,
+a,
+.fa-close {
+  cursor: pointer;
+}
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+a[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
