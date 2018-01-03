@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/Products.css';
 import Wrapper from '../hoc/Wrapper';
 import Product from './products/List';
+import {Helmet} from 'react-helmet'
 import CartContainer from '../containers/CartContainer';
 
 class Products extends React.PureComponent {
@@ -10,7 +11,7 @@ class Products extends React.PureComponent {
     this.state = {
       products: [],
       brand: '',
-      sort: 'price',
+      sort: 'brand',
       sortOrder: 'asc'
     };
     this.addnew = this.addNewProduct.bind(this);
@@ -19,7 +20,7 @@ class Products extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.categoryName !== nextProps.categoryName) {
-      this.setState({brand: '', sort: 'price', sortOrder: 'asc', products: nextProps.products});
+      this.setState({brand: '', sort: 'brand', sortOrder: 'asc', products: nextProps.products});
     } else if (nextProps.products !== this.props.products) {
       this.updateState({
         brand: this.state.brand,
@@ -69,7 +70,16 @@ class Products extends React.PureComponent {
   }
 
   render() {
-    let productsHtml, allProducts = this.state.products;
+    let documentTitle, productsHtml, allProducts = this.state.products;
+    if (this.props.categoryName) {
+      documentTitle = (<Helmet>
+        <title>Products - {this.props.categoryName}</title>
+      </Helmet>);
+    } else {
+      documentTitle = (<Helmet>
+        <title>All Products</title>
+      </Helmet>);
+    }
     if (!allProducts.length && this.props.categoryName) {
       productsHtml = (
         <div className='col-sm-12'>
@@ -96,6 +106,7 @@ class Products extends React.PureComponent {
     }
     return (
       <Wrapper>
+        {documentTitle}
         <CartContainer/>
         {this.props.loginStatus && (
           <div className='row justify-content-end mb-4'>

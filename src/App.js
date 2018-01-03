@@ -27,11 +27,11 @@ class App extends React.Component {
             <div className="col-sm-10">
               <Switch>
                 <Route path='/callback' component={CallBack} />
-                <Route path='/home' component={ProductContainer} />
-                <Route path='/products' exact component={ProductContainer} />
-                <Route path='/products/new' component={NewProductContainer} />
+                <Route path='/home' title="React Shopping Cart" component={ProductContainer} />
+                <Route path='/products' title="React Shopping Cart - Products" exact component={ProductContainer} />
+                <Route path='/products/new' title="React Shopping Cart - Add New Product" component={NewProductContainer} />
                 <Route path='/cart' component={CartContainer} />
-                <Route path='/orders' component={OrdersContainer} />
+                <Route path='/orders' title="React Shopping Cart - All Orders" component={OrdersContainer} />
                 <Route
                   path='/order-success/:orderId'
                   component={OrderDetailContainer}

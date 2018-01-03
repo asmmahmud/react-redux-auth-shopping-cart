@@ -6,10 +6,7 @@ import history from '../history';
 
 export const addToCart = productId => (dispatch, getState) => {
   const state = getState();
-  if (
-    state.allProducts[productId] &&
-    state.allProducts[productId].quantity > 0
-  ) {
+  if (state.allProducts[productId] && state.allProducts[productId].quantity > 0) {
     dispatch({
       type: ACTIONS.ADD_TO_CART,
       productId: productId
@@ -44,7 +41,7 @@ export const placeOrder = orderData => (dispatch, getState) => {
     };
     console.log(orderData);
     const accessToken = Auth.getAccessToken();
-    const API_URL = 'http://localhost:3002/api/orders/create';
+    const API_URL = 'http://18.217.193.169/api/orders/create';
     const headers = { Authorization: `Bearer ${accessToken}` };
     dispatch({
       type: ACTIONS.CHECKOUT_INIT

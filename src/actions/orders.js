@@ -13,7 +13,7 @@ export const loadAllOrders = () => (dispatch, getState) => {
 
   const emailParam = encodeURIComponent(email);
  // console.log(emailParam);
-  const API_URL = 'http://localhost:3002/api/orders?email=' + emailParam;
+  const API_URL = 'http://18.217.193.169/api/orders?email=' + emailParam;
   const headers = { Authorization: `Bearer ${accessToken}` };
   // dispatch(showInitializingAlert());
   axios

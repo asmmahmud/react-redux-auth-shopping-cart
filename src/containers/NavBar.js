@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Auth from '../AuthService/Auth';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import { getCartItemCount } from '../reducers/cartReducer';
+import {Collapse, Navbar, NavbarToggler} from 'reactstrap';
+import {NavLink} from 'react-router-dom';
+import {getCartItemCount} from '../reducers/cartReducer';
 
 class NavigationBar extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
@@ -14,29 +14,32 @@ class NavigationBar extends React.Component {
     };
   }
 
-  toggle () {
+  toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
-  login (e) {
+
+  login(e) {
     e.preventDefault();
     Auth.login();
   }
 
-  logout (e) {
+  logout(e) {
     e.preventDefault();
     Auth.logout(this.props.dispatch);
   }
-  cartItemCountLink (e) {
+
+  cartItemCountLink(e) {
     e.preventDefault();
   }
-  render () {
+
+  render() {
     return (
       <Navbar color='faded' light expand='md'>
         <div className='container'>
-          <NavbarBrand href='/home'>Shopping Cart</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+          <NavLink to='/home' className="navbar-brand">Shopping Cart</NavLink>
+          <NavbarToggler onClick={this.toggle}/>
           <Collapse isOpen={this.state.isOpen} navbar>
             <div className='navbar-nav ml-auto'>
               <NavLink

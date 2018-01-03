@@ -12,7 +12,7 @@ export const loadAllProducts = (sort = 'brand', sortOrder = 'asc') => (dispatch)
     }
   }
 
-  const API_URL = `http://localhost:3002/api/products?${query}`;
+  const API_URL = `http://18.217.193.169/api/products?${query}`;
   dispatch(showInitializingAlert());
   axios
     .get(API_URL)
@@ -38,7 +38,7 @@ export const setProductFilter = (filters) => {
 export const submitNewProduct = productData => dispatch => {
   const accessToken = Auth.getAccessToken();
   console.log('submitNewProduct', productData);
-  const API_URL = 'http://localhost:3002/api/products';
+  const API_URL = 'http://18.217.193.169/api/products';
   const headers = {Authorization: `Bearer ${accessToken}`};
   dispatch({
     type: ACTIONS.SUBMIT_NEW_PRODUCT

@@ -14,3 +14,17 @@ a[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
 }
+.side-nav .nav-link {
+  color: #00796b;
+}
+.side-nav .nav-link:hover,
+.side-nav .nav-link:focus {
+  color: #bf360c;
+}
+.side-nav .nav-link.active {
+  color: rgba(178, 179, 179, 0.9);
+}
+.side-nav .nav-link.active:hover,
+.side-nav .nav-link.active:focus {
+  color: rgba(178, 179, 179, 0.9);
+}

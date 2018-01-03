@@ -7,7 +7,7 @@ const Sidebar = function (props) {
   const monitor = encodeURIComponent('Monitor');
   const cars = encodeURIComponent('Electric Car');
   return (
-    <div className="nav flex-column">
+    <div className="nav side-nav flex-column">
       <NavLink activeClassName='active' to={'/'+cellPhone} className="nav-item nav-link">Cell Phones</NavLink>
       <NavLink activeClassName='active' to={'/'+laptop} className="nav-item nav-link">Laptop</NavLink>
       <NavLink activeClassName='active' to={'/'+monitor} className="nav-item nav-link">Monitor</NavLink>
