@@ -1,5 +1,5 @@
 {
-  "name": "auth-shopping-cart",
+  "name": "react-redux-auth-shopping-cart",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -46,9 +46,7 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "plugins": [
-      "react"
-    ],
+    "plugins": ["react"],
     "extends": "react-app",
     "env": {
       "browser": true,
@@ -57,5 +55,8 @@
     "rules": {
       "no-console": "off"
     }
-  }
+  },
+  "repository": "https://github.com/asmmahmud/react-redux-auth-shopping-cart.git",
+  "author": "A.S.M. Mahmudul Hasan",
+  "license": "MIT"
 }
