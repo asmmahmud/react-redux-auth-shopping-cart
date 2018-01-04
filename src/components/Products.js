@@ -2,11 +2,11 @@ import React from 'react';
 import '../css/Products.css';
 import Wrapper from '../hoc/Wrapper';
 import Product from './products/List';
-import {Helmet} from 'react-helmet'
+import { Helmet } from 'react-helmet';
 import CartContainer from '../containers/CartContainer';
 
 class Products extends React.PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       products: [],
@@ -17,33 +17,41 @@ class Products extends React.PureComponent {
     this.addnew = this.addNewProduct.bind(this);
     this.sortAndFilterHandler = this.sortAndFilterHandler.bind(this);
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.categoryName !== nextProps.categoryName) {
-      this.setState({brand: '', sort: 'brand', sortOrder: 'asc', products: nextProps.products});
-    } else if (nextProps.products !== this.props.products) {
-      this.updateState({
-        brand: this.state.brand,
-        sort: this.state.sort,
-        sortOrder: this.state.sortOrder
-      }, nextProps.products);
+  componentDidMount () {
+    if (this.props.products !== this.state.products) {
+      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', products: this.props.products });
     }
   }
 
-  updateState(newFilter, allProducts) {
+  componentWillReceiveProps (nextProps) {
+    // console.log('componentWillReceiveProps: ', nextProps.products);
+    if (this.props.categoryName !== nextProps.categoryName) {
+      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', products: nextProps.products });
+    } else if (nextProps.products !== this.props.products) {
+      this.updateState(
+        {
+          brand: this.state.brand,
+          sort: this.state.sort,
+          sortOrder: this.state.sortOrder
+        },
+        nextProps.products
+      );
+    }
+  }
+
+  updateState (newFilter, allProducts) {
     this.setState(prevState => {
       const nextState = {
         ...prevState,
         ...newFilter
       };
       const brand = nextState.brand;
-      const products = allProducts
-        .filter(product => {
-          if (brand) {
-            return product.brand === brand
-          }
-          return true;
-        });
+      const products = allProducts.filter(product => {
+        if (brand) {
+          return product.brand === brand;
+        }
+        return true;
+      });
       products.sort((productA, productB) => {
         const nameA = productA[nextState.sort],
           nameB = productB[nextState.sort],
@@ -60,30 +68,38 @@ class Products extends React.PureComponent {
     });
   }
 
-  sortAndFilterHandler(e) {
+  sortAndFilterHandler (e) {
     const target = e.target;
-    this.updateState({[target.name]: target.value}, this.props.products);
+    this.updateState({ [target.name]: target.value }, this.props.products);
   }
 
-  addNewProduct() {
+  addNewProduct () {
     this.props.history.replace('/products/new');
   }
 
-  render() {
-    let documentTitle, productsHtml, allProducts = this.state.products;
+  render () {
+    let documentTitle,
+      productsHtml,
+      allProducts = this.state.products;
     if (this.props.categoryName) {
-      documentTitle = (<Helmet>
-        <title>Products - {this.props.categoryName}</title>
-      </Helmet>);
+      documentTitle = (
+        <Helmet>
+          <title>Products - {this.props.categoryName}</title>
+        </Helmet>
+      );
     } else {
-      documentTitle = (<Helmet>
-        <title>All Products</title>
-      </Helmet>);
+      documentTitle = (
+        <Helmet>
+          <title>All Products</title>
+        </Helmet>
+      );
     }
     if (!allProducts.length && this.props.categoryName) {
       productsHtml = (
         <div className='col-sm-12'>
-          <h4 className='text-center'>No Product found on the category <strong>{this.props.categoryName}</strong></h4>
+          <h4 className='text-center'>
+            No Product found on the category <strong>{this.props.categoryName}</strong>
+          </h4>
         </div>
       );
     } else if (!allProducts.length) {
@@ -107,7 +123,7 @@ class Products extends React.PureComponent {
     return (
       <Wrapper>
         {documentTitle}
-        <CartContainer/>
+        <CartContainer />
         {this.props.loginStatus && (
           <div className='row justify-content-end mb-4'>
             <div className='col-sm-2'>
@@ -121,29 +137,31 @@ class Products extends React.PureComponent {
         <div className='row justify-content-center'>
           <div className='col-sm-12'>
             <div className='product-bar d-flex justify-content-between'>
-              {Object.keys(this.props.brandList).length &&
-              <div className='filter'>
-                <div className='form-group row'>
-                  <label htmlFor='brand' className='col-sm-2 col-form-label'>
-                    Filter
-                  </label>
-                  <div className='col-sm-10'>
-                    <select
-                      onChange={this.sortAndFilterHandler}
-                      value={this.state.brand}
-                      className='form-control'
-                      name='brand'
-                      id='brand'
-                    >
-                      <option value=''>All</option>
-                      {this.props.brandList.map(brand =>
-                        <option key={brand} value={brand}>{brand}</option>
-                      )}
-                    </select>
+              {Object.keys(this.props.brandList).length && (
+                <div className='filter'>
+                  <div className='form-group row'>
+                    <label htmlFor='brand' className='col-sm-2 col-form-label'>
+                      Filter
+                    </label>
+                    <div className='col-sm-10'>
+                      <select
+                        onChange={this.sortAndFilterHandler}
+                        value={this.state.brand}
+                        className='form-control'
+                        name='brand'
+                        id='brand'
+                      >
+                        <option value=''>All</option>
+                        {this.props.brandList.map(brand => (
+                          <option key={brand} value={brand}>
+                            {brand}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </div>
-              }
+              )}
               <div className='d-flex justify-content-between sorting'>
                 <div className='form-group row'>
                   <label htmlFor='sort' className='col-sm-4 col-form-label'>
@@ -164,10 +182,7 @@ class Products extends React.PureComponent {
                   </div>
                 </div>
                 <div className='form-group row'>
-                  <label
-                    htmlFor='sortOrder'
-                    className='col-sm-4 col-form-label'
-                  >
+                  <label htmlFor='sortOrder' className='col-sm-4 col-form-label'>
                     Order:
                   </label>
                   <div className='col-sm-7'>

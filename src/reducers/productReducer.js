@@ -72,7 +72,7 @@ export const getFilteredProducts = createSelector(
     return Object.keys(allProducts)
       .filter(productId => {
         if (categoryName) {
-          return allProducts[productId].category === categoryName
+          return allProducts[productId].category === categoryName;
         }
         return true;
       })
