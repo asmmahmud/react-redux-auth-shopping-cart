@@ -1,6 +1,6 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 import dotProp from 'dot-prop-immutable';
-import {ACTIONS} from '../actions/types';
+import { ACTIONS } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -41,15 +41,15 @@ export const productAddedReducer = (state, action) => {
 };
 
 export const getFilteredProductBrands = createSelector(
-  [
-    state => state.allProducts,
-    (state, categoryName) => categoryName
-  ],
+  [state => state.allProducts, (state, categoryName) => categoryName],
   (allProducts, categoryName) => {
     if (categoryName) {
       return Object.keys(allProducts).reduce((brandList, productId) => {
-        if (allProducts[productId].category === categoryName
-          && allProducts[productId].brand && brandList.indexOf(allProducts[productId].brand) === -1) {
+        if (
+          allProducts[productId].category === categoryName &&
+          allProducts[productId].brand &&
+          brandList.indexOf(allProducts[productId].brand) === -1
+        ) {
           brandList.push(allProducts[productId].brand);
         }
         return brandList;
@@ -64,10 +64,7 @@ export const getFilteredProductBrands = createSelector(
   }
 );
 export const getFilteredProducts = createSelector(
-  [
-    state => state.allProducts,
-    (state, categoryName) => categoryName,
-  ],
+  [state => state.allProducts, (state, categoryName) => categoryName],
   (allProducts, categoryName) => {
     return Object.keys(allProducts)
       .filter(productId => {
