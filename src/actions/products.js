@@ -1,9 +1,10 @@
 import axios from 'axios';
 import Auth from '../AuthService/Auth';
-import {showTheAlert, showInitializingAlert, closeTheAlert} from './alert';
-import {ACTIONS} from './types';
+import { showTheAlert, showInitializingAlert, closeTheAlert } from './alert';
+import { API_DOMAIN } from '../config';
+import { ACTIONS } from './types';
 
-export const loadAllProducts = (sort = 'brand', sortOrder = 'asc') => (dispatch) => {
+export const loadAllProducts = (sort = 'brand', sortOrder = 'asc') => dispatch => {
   let query;
   if (sort) {
     query = 'sort=' + sort;
@@ -12,7 +13,7 @@ export const loadAllProducts = (sort = 'brand', sortOrder = 'asc') => (dispatch)
     }
   }
 
-  const API_URL = `http://18.217.193.169/api/products?${query}`;
+  const API_URL = `${API_DOMAIN}/api/products?${query}`;
   dispatch(showInitializingAlert());
   axios
     .get(API_URL)
@@ -22,29 +23,29 @@ export const loadAllProducts = (sort = 'brand', sortOrder = 'asc') => (dispatch)
         loadedProducts: response.data
       });
       dispatch(closeTheAlert());
-      //console.log(response.data);
+      // console.log(response.data);
     })
     .catch(error => {
       console.log(error);
       dispatch(showTheAlert(error.message, 'danger'));
     });
 };
-export const setProductFilter = (filters) => {
+export const setProductFilter = filters => {
   return {
     type: ACTIONS.SET_PRODUCT_FILTERS,
     filters
   };
-}
+};
 export const submitNewProduct = productData => dispatch => {
   const accessToken = Auth.getAccessToken();
   console.log('submitNewProduct', productData);
-  const API_URL = 'http://18.217.193.169/api/products';
-  const headers = {Authorization: `Bearer ${accessToken}`};
+  const API_URL = API_DOMAIN + '/api/products';
+  const headers = { Authorization: `Bearer ${accessToken}` };
   dispatch({
     type: ACTIONS.SUBMIT_NEW_PRODUCT
   });
   axios
-    .post(API_URL, productData, {headers})
+    .post(API_URL, productData, { headers })
     .then(response => {
       console.log(response.data);
       dispatch({
@@ -61,4 +62,3 @@ export const submitNewProduct = productData => dispatch => {
       dispatch(showTheAlert(error.message, 'danger'));
     });
 };
-

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Auth from '../AuthService/Auth';
 import { loadAllProducts } from './products';
 import history from '../history';
+import { API_DOMAIN } from '../config';
 
 export const addToCart = productId => (dispatch, getState) => {
   const state = getState();
@@ -41,7 +42,7 @@ export const placeOrder = orderData => (dispatch, getState) => {
     };
     console.log(orderData);
     const accessToken = Auth.getAccessToken();
-    const API_URL = 'http://18.217.193.169/api/orders/create';
+    const API_URL = API_DOMAIN + '/api/orders/create';
     const headers = { Authorization: `Bearer ${accessToken}` };
     dispatch({
       type: ACTIONS.CHECKOUT_INIT
