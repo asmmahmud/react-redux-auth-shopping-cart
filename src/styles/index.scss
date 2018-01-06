@@ -1,0 +1,36 @@
+@import 'styles/_variable.scss';
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+button,
+a,
+.fa-close {
+  cursor: pointer;
+}
+.btn-margin {
+  margin: 0.7rem 3px;
+}
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+a[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.side-nav {
+  .nav-link {
+    color: $color1;
+  }
+  .nav-link:hover,
+  .nav-link:focus {
+    color: rgba($color2, 0.9);
+  }
+  .nav-link.active {
+    color: rgba($grey, 0.9);
+  }
+  .nav-link.active:hover,
+  .nav-link.active:focus {
+    color: rgba($grey, 0.9);
+  }
+}

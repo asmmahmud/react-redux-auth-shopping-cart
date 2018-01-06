@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import '../css/Cart.css';
+import '../styles/Cart.scss';
 import spinnerSvg from '../assets/loading.svg';
 import CartItem from './Cart/CartItem';
 import Wrapper from '../hoc/Wrapper';
@@ -73,9 +73,7 @@ class Cart extends React.PureComponent {
             <tr>
               <td colSpan="2" className="text-left">
                 <Link
-                  disabled={
-                    this.props.productCount <= 0 || !this.props.loginStatus
-                  }
+                  disabled={this.props.productCount <= 0 || !this.props.loginStatus}
                   to="/cart/checkout"
                   onClick={this.openCheckout}
                   className="btn btn-outline-primary text-left"
@@ -99,7 +97,7 @@ class Cart extends React.PureComponent {
             {progressReport}
             <div className="card shopping-cart">
               <div className="card-header">
-                <div className='top-part' />
+                <div className="top-part" />
                 <h5 className="cart-title">Shopping Cart ({this.props.cartItemCount} Items)</h5>
               </div>
               <div className="card-body">{content}</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Products.css';
+import '../styles/Products.scss';
 import Wrapper from '../hoc/Wrapper';
 import Product from './products/List';
 import { Helmet } from 'react-helmet';

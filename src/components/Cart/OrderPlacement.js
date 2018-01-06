@@ -1,24 +1,30 @@
 import React from 'react';
-import '../../css/OrderPlacement.css';
+import '../../styles/OrderPlacement.scss';
 import BillingAddress from './OrderPlacement/BillingAddress';
 import PaymentMethod from './OrderPlacement/PaymentMethod';
 import ShippingMethod from './OrderPlacement/ShippingMethod';
-import {reduxForm} from 'redux-form';
+import { reduxForm } from 'redux-form';
 
-const validate = (values) => {
-
-  const errors = {billingAddress: {}, shippingMethod: '', paymentMethod: ''};
+const validate = values => {
+  const errors = { billingAddress: {}, shippingMethod: '', paymentMethod: '' };
   if (!(values.billingAddress && values.billingAddress.name)) {
     errors.billingAddress.name = 'Required';
   }
   if (!(values.billingAddress && values.billingAddress.email)) {
     errors.billingAddress.email = 'Required';
-  } else if (!values.billingAddress || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.billingAddress.email)) {
+  } else if (
+    !values.billingAddress ||
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.billingAddress.email)
+  ) {
     errors.billingAddress.email = 'Invalid Email Address';
   }
   if (!(values.billingAddress && values.billingAddress.postCode)) {
     errors.billingAddress.postCode = 'Required';
-  } else if (!values.billingAddress || values.billingAddress.postCode.length < 4 || values.billingAddress.postCode.length > 5) {
+  } else if (
+    !values.billingAddress ||
+    values.billingAddress.postCode.length < 4 ||
+    values.billingAddress.postCode.length > 5
+  ) {
     errors.billingAddress.postCode = 'Post Code is not valid';
   }
   if (!(values.billingAddress && values.billingAddress.country)) {
@@ -36,8 +42,7 @@ const validate = (values) => {
   return errors;
 };
 
-const PlaceOrder = (props) => {
-
+const PlaceOrder = props => {
   return (
     <form onSubmit={props.handleSubmit(props.placeOrder)} className='order-place-form'>
       <div className='row'>
@@ -47,17 +52,17 @@ const PlaceOrder = (props) => {
       </div>
       <div className='row justify-content-center'>
         <div className='col-sm-6'>
-          <BillingAddress/>
+          <BillingAddress />
         </div>
         <div className='col-sm-6'>
           <div className='row'>
             <div className='col-sm-12'>
-              <ShippingMethod/>
+              <ShippingMethod />
             </div>
           </div>
           <div className='row'>
             <div className='col-sm-12'>
-              <PaymentMethod/>
+              <PaymentMethod />
             </div>
           </div>
         </div>
@@ -67,9 +72,7 @@ const PlaceOrder = (props) => {
           <button
             className='btn btn-primary mr-3'
             type='submit'
-            disabled={
-              props.productCount <= 0 || !props.loginStatus || props.submitting
-            }
+            disabled={props.productCount <= 0 || !props.loginStatus || props.submitting}
           >
             Place Order
           </button>

@@ -1,12 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import Auth from '../AuthService/Auth';
-import {Collapse, Navbar, NavbarToggler} from 'reactstrap';
-import {NavLink} from 'react-router-dom';
-import {getCartItemCount} from '../reducers/cartReducer';
 
-class NavigationBar extends React.Component {
-  constructor(props) {
+import { Collapse, Navbar, NavbarToggler } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+
+export default class NavigationBar extends React.Component {
+  constructor (props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
@@ -14,47 +13,41 @@ class NavigationBar extends React.Component {
     };
   }
 
-  toggle() {
+  toggle () {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
 
-  login(e) {
+  login (e) {
     e.preventDefault();
     Auth.login();
   }
 
-  logout(e) {
+  logout (e) {
     e.preventDefault();
     Auth.logout(this.props.dispatch);
   }
 
-  cartItemCountLink(e) {
+  cartItemCountLink (e) {
     e.preventDefault();
   }
 
-  render() {
+  render () {
     return (
       <Navbar color='faded' light expand='md'>
         <div className='container'>
-          <NavLink to='/home' className="navbar-brand">Shopping Cart</NavLink>
-          <NavbarToggler onClick={this.toggle}/>
+          <NavLink to='/home' className='navbar-brand'>
+            Shopping Cart
+          </NavLink>
+          <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <div className='navbar-nav ml-auto'>
-              <NavLink
-                activeClassName='active'
-                className='nav-item nav-link'
-                to='/products'
-              >
+              <NavLink activeClassName='active' className='nav-item nav-link' to='/products'>
                 Products
               </NavLink>
               {this.props.loginStatus && (
-                <NavLink
-                  activeClassName='active'
-                  className='nav-item nav-link'
-                  to='/orders'
-                >
+                <NavLink activeClassName='active' className='nav-item nav-link' to='/orders'>
                   Orders
                 </NavLink>
               )}
@@ -95,11 +88,7 @@ class NavigationBar extends React.Component {
                   to='#'
                   onClick={this.cartItemCountLink}
                 >
-                  <img
-                    src={this.props.profilePic}
-                    width='50'
-                    alt='profile pic'
-                  />
+                  <img src={this.props.profilePic} width='50' alt='profile pic' />
                 </NavLink>
               )}
             </div>
@@ -109,12 +98,3 @@ class NavigationBar extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    loginStatus: state.loginStatus,
-    cartItemCount: getCartItemCount(state),
-    profilePic: state.userProfile.picture
-  };
-};
-export default connect(mapStateToProps)(NavigationBar);

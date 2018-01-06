@@ -1,35 +1,37 @@
+@import 'styles/_variable.scss';
+
 .product-box {
-  color: rgba(100, 100, 100, 0.85);
-  height: 320px;
-  margin-top: 15px;
+  color: rgba($color1, 0.85);
+  height: 20rem;
+  margin-top: 1.5rem;
 }
 .product-box .card-header {
-  color: rgba(230, 230, 230, 0.95);
+  color: rgba($light-grey, 0.95);
   padding: 0;
-  border-bottom: 1px solid #00675b;
+  border-bottom: 2px solid rgba($color2, .95);
 }
 .product-box .card-header .top-part {
-  height: 20px;
-  background-color: #00675b;
+  height: 1.25rem;
+  background-color: darken($color5, 20%);
 }
 .product-box .card-header .card-title {
-  padding: .75rem 0 .75rem 1.8rem;
+  padding: .75rem 0;
   margin: 0;
-  height: 66px;
-  text-align: left;
-  background-color: #009688;
+  height: 4.125rem;
+  text-align: center;
+  background-color: $color3;
 }
 .product-box .card-header .card-title h6 {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.4;
   font-weight: normal;
 }
 .product-box .card-body {
-  background-color: #e1e2e1;
+  background-color: $bg-grey;
   padding: 0.5rem;
 }
 .product-box .list-group {
-  font-size: 14px;
+  font-size: .875rem;
 }
 .product-box .list-group-item {
   padding: .5rem 1.25rem;
@@ -43,28 +45,28 @@
   border-top: 1px solid transparent;
 }
 .btn-outline-success:hover {
-  color: #fff;
-  background-color: #7cb342;
-  border-color: #4b830d;
+  color: $color-white;
+  background-color: $color4;
+  border-color: darken($color4, 15%);
 }
 .btn-outline-success {
-  color: #7cb342;
+  color: $color4;
   background-color: transparent;
   background-image: none;
-  border-color: #7cb342;
+  border-color: $color4;
 }
 .btn-outline-success:not([disabled]):not(.disabled).active,
 .btn-outline-success:not([disabled]):not(.disabled):active,
 .show > .btn-outline-success.dropdown-toggle {
-  color: #fff;
-  background-color: #7cb342;
-  border-color: #7cb342;
-  box-shadow: 0 0 0 0.2rem rgba(75, 131, 13, 0.5);
+  color: $color-white;
+  background-color: $color4;
+  border-color: $color4;
+  box-shadow: 0 0 0 0.2rem rgba($color4, 0.5);
 }
 .product-bar {
   padding: 8px 10px 10px;
-  background-color: #e1e2e1;
-  height: 54px;
+  background-color: $bg-grey;
+  height: 3.375rem;
 }
 .product-bar .filter {
   width: 40%;

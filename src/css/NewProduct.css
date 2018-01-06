@@ -1,7 +1,0 @@
-.form-group .form-control.form-control-error {
-  border: 1px solid rgba(200, 50, 50, 0.9);
-}
-.form-group .form-control.form-control-error:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(200, 50, 50, 0.35);
-  box-shadow: 0 0 0 0.2rem rgba(200, 50, 50, 0.35);
-}

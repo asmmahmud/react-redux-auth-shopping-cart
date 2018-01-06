@@ -1,0 +1,9 @@
+@import 'styles/_variable.scss';
+
+.form-group .form-control.form-control-error {
+  border: 1px solid darken($color2, 10%);
+}
+.form-group .form-control.form-control-error:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(darken($color2, 10%), 0.35);
+  box-shadow: 0 0 0 0.2rem rgba(darken($color2, 10%), 0.35);
+}

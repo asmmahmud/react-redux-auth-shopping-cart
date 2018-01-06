@@ -1,29 +1,31 @@
+@import 'styles/_variable.scss';
+
 .shopping-cart .card-header {
-  color: rgba(230, 230, 230, 0.85);
+  color: rgba($light-grey, 0.85);
   padding: 0;
-  border-bottom: 1px solid #00675b;
+  border-bottom: 1px solid $color2;
 }
 .shopping-cart .card-header .top-part {
-  height: 20px;
-  background-color: #00675b;
+  height: 2rem;
+  background-color: darken($color4, 20%);
 }
 .shopping-cart .card-header .cart-title {
   padding: .75rem 0 .95rem 1.4rem;
   margin: 0;
   line-height: 1;
   text-align: left;
-  background-color: #009688;
+  background-color: $color4;
 }
 .quantity-row .quantity {
-  border: 1px solid #009688;
-  padding: 0 10px;
+  border: 1px solid $color2;
+  padding: 0 1rem;
   display: inline-block;
-  margin: auto 15px;
+  margin: auto 1.5rem;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .decrement,
 .increment {
-  padding: 0 5px;
+  padding: 0 .5rem;
 }

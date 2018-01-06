@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import loading from '../assets/loading.svg';
 import Auth from '../AuthService/Auth';
 
-class CallBackComponent extends React.Component {
+export default class CallBackComponent extends React.Component {
   componentDidMount () {
     if (/access_token|id_token|error/.test(this.props.location.hash)) {
       Auth.handleAuthentication(this.props);
@@ -31,5 +30,3 @@ class CallBackComponent extends React.Component {
     );
   }
 }
-
-export default connect()(CallBackComponent);

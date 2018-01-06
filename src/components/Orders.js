@@ -2,7 +2,7 @@ import React from 'react';
 import Wrapper from '../hoc/Wrapper';
 import { Route, Link } from 'react-router-dom';
 import OrderDetailContainer from '../containers/OrdersContainer/OrderDetailContainer';
-import '../css/Order.css';
+import '../styles/Order.scss';
 
 class Orders extends React.PureComponent {
   render () {
@@ -36,10 +36,7 @@ class Orders extends React.PureComponent {
                     <td>{allOrders[orderId].totalQty}</td>
                     <td>{allOrders[orderId].grandTotal}</td>
                     <td>
-                      <Link
-                        to={{ pathname: '/orders/' + orderId }}
-                        title={'order id: ' + orderId}
-                      >
+                      <Link to={{ pathname: '/orders/' + orderId }} title={'order id: ' + orderId}>
                         View
                       </Link>
                     </td>

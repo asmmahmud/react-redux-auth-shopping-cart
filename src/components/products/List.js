@@ -1,11 +1,16 @@
 import React from 'react';
-import '../../css/Product.css';
+import '../../styles/Product.scss';
 
 const Product = function (props) {
   const list = Object.keys(props.product)
     .filter(
       key =>
-        key!== 'productId' && key !== 'name' && key !== 'category' && key !== '_id' && key !== 'createdAt' && key !== '__v'
+        key !== 'productId' &&
+        key !== 'name' &&
+        key !== 'category' &&
+        key !== '_id' &&
+        key !== 'createdAt' &&
+        key !== '__v'
     )
     .map(key => {
       return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import '../../css/NewProduct.css';
+import '../../styles/NewProduct.scss';
 import { renderInput, renderSelect } from '../../redux-form-helper/renderer';
 
 const validate = values => {

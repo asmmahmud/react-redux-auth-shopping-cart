@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import 'react-popper';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './styles/index.css';
 import history from './history';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -19,7 +19,7 @@ import Auth from './AuthService/Auth';
 
 const middleware = [thunk];
 if (process.env.NODE_ENV === 'development') {
- // middleware.push(createLogger());
+  // middleware.push(createLogger());
 }
 
 const store = createStore(reducer, applyMiddleware(...middleware));
@@ -32,8 +32,5 @@ const app = (
     <App />
   </Router>
 );
-ReactDOM.render(
-  <Provider store={store}>{app}</Provider>,
-  document.getElementById('root')
-);
+ReactDOM.render(<Provider store={store}>{app}</Provider>, document.getElementById('root'));
 registerServiceWorker();

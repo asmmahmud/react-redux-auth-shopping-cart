@@ -6,10 +6,12 @@
     "auth0-js": "^8.12.1",
     "axios": "^0.17.1",
     "bootstrap": "4.0.0-beta.2",
+    "css-loader": "^0.28.8",
     "dot-prop-immutable": "^1.4.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
+    "node-sass": "^4.7.2",
     "react": "^16.2.0",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
@@ -25,7 +27,9 @@
     "redux-form": "^7.2.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,7 +50,9 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "plugins": ["react"],
+    "plugins": [
+      "react"
+    ],
     "extends": "react-app",
     "env": {
       "browser": true,
