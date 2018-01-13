@@ -1,28 +1,34 @@
-@import 'styles/_variable.scss';
-
+@import './_variable.scss';
+.product-list .page-title {
+  margin-bottom: 0;
+  margin-top: 10px;
+}
 .product-box {
   color: rgba($color1, 0.85);
-  height: 20rem;
+  height: calculate-rem(320px);
   margin-top: 1.5rem;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 1px 2px 10px 0 rgba($color-black, 0.3);
 }
 .product-box .card-header {
-  color: rgba($light-grey, 0.95);
   padding: 0;
-  border-bottom: 2px solid rgba($color2, .95);
+  border-bottom: 2px solid darken($color4, 5%);
 }
 .product-box .card-header .top-part {
-  height: 1.25rem;
-  background-color: darken($color5, 20%);
+  height: calculate-rem(20px);
+  background-color: darken($color4, 10%);
 }
 .product-box .card-header .card-title {
-  padding: .75rem 0;
+  color: $light-grey;
+  padding: .75rem .4rem;
   margin: 0;
-  height: 4.125rem;
+  height: calculate-rem(66px);
   text-align: center;
-  background-color: $color3;
+  background-color: $color4;
 }
 .product-box .card-header .card-title h6 {
-  font-size: 1rem;
+  font-size: calculate-rem(16px);
   line-height: 1.4;
   font-weight: normal;
 }
@@ -31,7 +37,7 @@
   padding: 0.5rem;
 }
 .product-box .list-group {
-  font-size: .875rem;
+  font-size: calculate-rem(14px);
 }
 .product-box .list-group-item {
   padding: .5rem 1.25rem;
@@ -40,47 +46,99 @@
   border: 1px solid transparent;
 }
 .product-box .card-footer {
-  padding: .75rem 1.25rem;
+  padding: .75rem calculate-rem(18px);
   background-color: transparent;
   border-top: 1px solid transparent;
 }
-.btn-outline-success:hover {
-  color: $color-white;
-  background-color: $color4;
-  border-color: darken($color4, 15%);
-}
-.btn-outline-success {
-  color: $color4;
-  background-color: transparent;
-  background-image: none;
-  border-color: $color4;
-}
-.btn-outline-success:not([disabled]):not(.disabled).active,
-.btn-outline-success:not([disabled]):not(.disabled):active,
-.show > .btn-outline-success.dropdown-toggle {
-  color: $color-white;
-  background-color: $color4;
-  border-color: $color4;
-  box-shadow: 0 0 0 0.2rem rgba($color4, 0.5);
-}
 .product-bar {
-  padding: 8px 10px 10px;
+  padding: calculate-rem(8px) calculate-rem(10px) calculate-rem(10px);
   background-color: $bg-grey;
-  height: 3.375rem;
+  height: calculate-rem(54px);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 1rem 0 0;
+  box-shadow: 0 -5px 15px 0 rgba($color-black, 0.25);
 }
-.product-bar .filter {
-  width: 40%;
+@media only screen and (max-width: 767px) {
+  .product-bar {
+    height: auto;
+  }
+  .product-bar .sorting {
+    margin-top: 1rem;
+  }
 }
-.product-bar .sorting {
-  width: 50%;
+.product-list .form-group {
+  margin-bottom: 0;
+}
+.product-list .product-count {
+  display: flex;
+}
+.product-count .count-line {
+  color: $mid-grey;
+  align-self: flex-end;
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+.product-count .fa-warning {
+  align-self: flex-end;
+  margin-right: 5px;
+  font-size: 1.2rem;
+  color: darken($color3, 20%);
+}
+.product-count .fa-check-square {
+  align-self: flex-end;
+  margin-right: 5px;
+  font-size: 1.2rem;
+  color: $color4;
 }
 .product-bar .col-form-label {
   text-align: right;
 }
-.product-bar .sorting .row {
-  width: 50%;
+.filter select.form-control {
+  width: 7rem;
 }
-.product-bar .sorting .col-form-label {
-  margin-right: 0.5rem;
-  text-align: left;
+.product-bar .sorting {
+  display: flex;
+  justify-content: center;
+}
+.sorting select.form-control {
+  width: 7rem;
+}
+.sorting .col-form-label,
+.sorting .col-form-input{
+  padding-left: 0;
+}
+.sorting .direction {
+  margin-left: 1.3rem;
+}
+.sorting .direction .fa-sort-asc,
+.sorting .direction .fa-sort-desc {
+  border: 1px solid $grey;
+  display: block;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.sorting .direction .fa-sort-asc {
+  padding: .8rem 1.4rem .2rem .8rem;;
+}
+.sorting .direction .fa-sort-desc {
+  padding: .5rem 1.4rem .5rem .8rem;
+}
+.product-search .form-group {
+  display: flex;
+  justify-content: flex-end;
+}
+.product-search input.product-search-control.form-control {
+  width: 12rem;
+}
+table.product-attributes {
+  font-size: calculate-rem(14px);
+}
+table.product-attributes tbody tr td:first-child {
+  text-align: right;
+}
+table.product-attributes tbody tr td {
+  padding: 0.5rem .5rem .5rem 0;
+  vertical-align: middle;
 }

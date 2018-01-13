@@ -1,9 +1,12 @@
-@import 'styles/_variable.scss';
+@import './_variable.scss';
 
 .order-place-form .placeorder-title {
-  background-color: $color5;
-  color: rgba($light-grey, 0.85);
+  background-color: darken($color5, 20%);
+  color: rgba($light-grey, 1);
   margin: 0 0 1rem 0;
-  padding: 0.6rem 1.5rem 1rem;
+  padding: 0.6rem 1.5rem .8rem;
   border-radius: 5px;
+}
+.place-order .card .sec-title {
+  margin: 0;
 }

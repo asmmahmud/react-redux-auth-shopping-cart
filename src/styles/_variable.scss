@@ -1,9 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 $color-white: #fff;
+$color-black: #000;
 $bg-grey: #e1e2e1;
+$default-text-color: rgb(83, 70, 70);
+$dark-grey: rgb(100, 100, 100);
+$mid-grey: rgb(127, 120, 120);
 $grey: rgb(178, 179, 179);
 $light-grey: rgb(230, 230, 230);
 $color1: rgb(80, 81, 79);
 $color2: rgb(242, 95, 92);
+$color2-light:  hsl(1, 85%, 75%);
 $color3: rgb(255, 224, 102);
 $color4: rgb(36, 123, 160);
 $color5: rgb(112, 193, 179);
+
+$primary:       $color5;
+$success:       $color5;
+$warning:       rgba(darken($color3, 25%), 0.5);
+$danger:        $color2;
+
+$font-family-sans-serif: 'Roboto Condensed', sans-serif;
+
+@function calculate-rem($size) {
+  $rem-size: $size / 16px;
+  @return $rem-size * 1rem;
+}

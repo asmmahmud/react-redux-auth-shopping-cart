@@ -1,4 +1,4 @@
-const Wrapper = function(props){
+const Wrapper = function(props) {
   return props.children;
 };
 

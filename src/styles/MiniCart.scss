@@ -1,0 +1,111 @@
+@import './_variable.scss';
+.fade {
+  transition: ease-in 0.25s;
+  transition-property: opacity, transform;
+}
+.fade-entering {
+  opacity: 0;
+  transform: translateY(-10%);
+}
+.fade-entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exiting {
+  transition: ease-out 0.25s;
+  opacity: 0;
+  transform: translateY(-10%);
+}
+.mini-cart img.ajax-loader{
+  display: block;
+  margin: 1rem auto;
+}
+.mini-cart {
+  box-shadow: 0 5px 10px 0 rgba($color-black, 0.1);
+  transition: all 0.4s ease-out;
+}
+.mini-cart .card-header {
+  color: $light-grey;
+  background-color: $color4;
+  border-bottom: 2px solid darken($color4, 5%);
+}
+.mini-cart .card-body {
+  padding: .5rem;
+}
+.mini-cart .table .product-name {
+  vertical-align: middle;
+  width: 35%;
+}
+.mini-cart .table {
+  margin-bottom: 0;
+}
+.mini-cart .table tr td {
+  font-size: calculate-rem(12px);
+  padding: 0.35rem;
+  vertical-align: middle;
+}
+.mini-cart .table .quantity-row {
+  text-align: center;
+  vertical-align: middle;
+  width: 55%;
+}
+.mini-cart .table .action {
+  vertical-align: middle;
+  width: 10%;
+}
+.mini-cart .table .action .fa-close {
+  display: block;
+  padding: 5px 0;
+  margin: 0;
+}
+.mini-cart .table .action .fa-close:hover {
+  color: $color2;
+}
+.mini-cart .quantity-row .price {
+  margin-bottom: 3px;
+}
+.mini-cart .quantity-row .price span {
+  color: $grey;
+}
+.mini-cart .quantity-row .quantity,
+.mini-cart .quantity-row .btn.decrement,
+.mini-cart .quantity-row .btn.increment {
+  display: inline-block;
+  border-radius: 50%;
+}
+.mini-cart .quantity-row .quantity {
+  background-color: darken($color4, 10%);
+  color: $color-white;
+  padding: .2rem 0.4rem;
+  margin: 0 4px;
+}
+.mini-cart .quantity-row .btn.decrement,
+.mini-cart .quantity-row .btn.increment {
+  padding: 0 .35rem;
+  margin: 0;
+}
+@media only screen and (min-width: 768px) {
+  .mini-cart .quantity-row .quantity,
+  .mini-cart .quantity-row .btn.decrement,
+  .mini-cart .quantity-row .btn.increment {
+    display: block;
+    width: 50%;
+    margin: 4px auto;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .mini-cart .quantity-row .quantity,
+  .mini-cart .quantity-row .btn.decrement,
+  .mini-cart .quantity-row .btn.increment {
+    display: inline-block;
+    width: auto;
+  }
+  .mini-cart .quantity-row .quantity {
+    margin: 0 4px;
+  }
+  .mini-cart .quantity-row .btn.decrement,
+  .mini-cart .quantity-row .btn.increment {
+    margin: 0;
+  }
+}
+

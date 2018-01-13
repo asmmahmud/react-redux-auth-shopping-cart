@@ -1,10 +1,11 @@
 import history from '../history';
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
-import { loadAllOrders } from '../actions/orders';
-import { changeLoginStatus } from '../actions/loginStatus';
-import { storeUserProfile } from '../actions/userprofile';
-import { showTheAlert } from '../actions/alert';
+import { loadAllOrders } from '../actions/orders-action';
+import { loadUserCart, clearTheCart } from '../actions/cart-action';
+import { changeLoginStatus } from '../actions/all-statuses-action';
+import { storeUserProfile } from '../actions/userprofile-action';
+import { showTheAlert } from '../actions/alert-action';
 
 /* eslint-disable  no-alert */
 export default class Auth {
@@ -15,7 +16,7 @@ export default class Auth {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.audience,
     responseType: 'token id_token',
-    scope: 'openid profile read:products update:products create:products',
+    scope: 'openid profile read:products update:products create:products'
   });
   static getProfile(cb) {
     let accessToken = Auth.getAccessToken();
@@ -34,6 +35,7 @@ export default class Auth {
           console.log(err);
         } else {
           dispatch(storeUserProfile(profile));
+          dispatch(loadUserCart());
           dispatch(loadAllOrders());
         }
       });
@@ -53,6 +55,8 @@ export default class Auth {
             console.log(err);
           } else {
             dispatch(storeUserProfile(profile));
+            dispatch(loadUserCart());
+            dispatch(loadAllOrders());
           }
         });
       } else if (err) {
@@ -66,9 +70,7 @@ export default class Auth {
   static setSession(authResult, props) {
     const { history, dispatch } = props;
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime(),
-    );
+    let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -89,6 +91,8 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     dispatch(changeLoginStatus(false));
+    dispatch(clearTheCart());
+
     // navigate to the home route
     history.replace('/home');
   }

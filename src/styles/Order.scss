@@ -1,11 +1,17 @@
-@import 'styles/_variable.scss';
+@import './_variable.scss';
 
 .order-page {
   margin: .5rem 0 1.5rem;
 }
 .order-page-title,
 .order-title {
-  background-color: $color5;
-  color: rgba($light-grey, 0.85);
+  background-color: darken($color5, 20%);
+  color: rgba($light-grey, 1);
   padding: .75rem 1rem .5rem;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.order-items-table .subtotal {
+  text-align: right;
 }

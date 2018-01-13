@@ -1,41 +1,29 @@
 import React from 'react';
-import loadingImg from '../assets/loading.svg';
+import { connect } from 'react-redux';
+import { closeTheAlert } from '../actions/alert-action';
 
-function Alert (props) {
-  if (props.type === 'INITIALIZING') {
-    return (
-      <div className='row justify-content-center'>
-        <div className='col-sm-6'>
-          <img
-            src={loadingImg}
-            width='60'
-            height='60'
-            alt='resource loading.....'
-          />
-        </div>
-      </div>
-    );
-  }
+function Alert(props) {
+  let html = null;
   if (props.type) {
-    return (
-      <div className='row justify-content-center'>
-        <div className='col-sm-10'>
-          <div
-            className={[
-              'alert',
-              'alert-' + props.type,
-              'd-flex',
-              'justify-content-between'
-            ].join(' ')}
-          >
-            <p className='message'>{props.message} </p>
-            <span onClick={props.closeTheAlert} className='fa fa-close' />
+    html = (
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className={['alert', 'alert-' + props.type, 'd-flex', 'justify-content-between'].join(' ')}>
+            <span className="message">{props.message} </span>
+            <span onClick={props.closeTheAlert} className="fa fa-close" />
           </div>
         </div>
       </div>
     );
   }
-  return null;
+  return html;
 }
 
-export default Alert;
+const mapStateToProps = state => {
+  return {
+    message: state.alert.message,
+    type: state.alert.type
+  };
+};
+
+export default connect(mapStateToProps, { closeTheAlert })(Alert);

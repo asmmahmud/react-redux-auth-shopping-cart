@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": "react-app",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": [
+    "react",
+    "prettier"
+  ],
+  "rules": {
+    "no-console": "off",
+    "prettier/prettier": "error",
+    "quotes": ["error", "single"]
+  }
+}

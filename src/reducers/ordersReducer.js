@@ -1,9 +1,9 @@
 import { ACTIONS } from '../actions/types';
 const processOrder = order => {
   let total = 0;
-  order.items.forEach((item, index) => {
+  order.items.forEach(item => {
     item.qty = parseInt(item.qty, 10);
-    item.price = parseFloat(item.price, 10);
+    item.price = parseFloat(item.price);
     total += item.qty;
   });
   order.id = order._id;
@@ -13,7 +13,7 @@ const processOrder = order => {
 };
 export default (state = {}, action) => {
   switch (action.type) {
-    case ACTIONS.LOAD_ALL_ORDERS: {
+    case ACTIONS.ORDERS_ALL_LOADED: {
       return action.loadedOrders.reduce((allOrders, order) => {
         allOrders[order._id] = processOrder(order);
         return allOrders;
@@ -22,9 +22,7 @@ export default (state = {}, action) => {
     case ACTIONS.CHECKOUT_SUCCESS: {
       return {
         ...state,
-        [action.lastSuccessfulOrder._id]: processOrder(
-          action.lastSuccessfulOrder
-        )
+        [action.lastSuccessfulOrder._id]: processOrder(action.lastSuccessfulOrder)
       };
     }
     default:

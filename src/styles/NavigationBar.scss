@@ -1,0 +1,46 @@
+@import './_variable.scss';
+nav.navbar {
+  box-shadow: 0 2px 30px rgba(0, 5, 5, 0.25);
+  margin-bottom: 1rem;
+  background-color: rgba(240, 245, 245, 1) !important;
+}
+.navbar .navbar-collapse.open {
+  display: block;
+}
+.navbar .navbar-collapse {
+  justify-content: flex-end;
+}
+.navbar-nav .nav-item .nav-link {
+  color: $color1;
+}
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link:focus {
+  color: rgba($color2, 0.9);
+}
+.navbar-nav .nav-item .nav-link.active {
+  cursor: default;
+  color: rgba($color1, .75);
+}
+.navbar-nav .nav-item .nav-link.active span {
+  border-bottom: 2px solid $color5;
+}
+.navbar-collapse .navbar-nav {
+}
+.navbar-collapse .navbar-nav .nav-item {
+  text-align: center;
+}
+.dropdown-menu.open {
+  display: block;
+  width: auto;
+  min-width: 0;
+  left: -65px;
+}
+nav.navbar .navbar-brand h1 {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+@media only screen and (min-width: 768px) {
+  nav.navbar .navbar-brand h1 {
+    font-size: 1.5rem;
+  }
+}

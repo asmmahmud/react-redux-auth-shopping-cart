@@ -1,31 +1,48 @@
-@import 'styles/_variable.scss';
+@import './_variable.scss';
 
 .shopping-cart .card-header {
   color: rgba($light-grey, 0.85);
   padding: 0;
-  border-bottom: 1px solid $color2;
+  border-bottom: 2px solid rgba(darken($color4, 5%), 0.7);
 }
 .shopping-cart .card-header .top-part {
-  height: 2rem;
-  background-color: darken($color4, 20%);
+  height: calculate-rem(20px);
+  background-color: darken($color4, 10%);
 }
 .shopping-cart .card-header .cart-title {
-  padding: .75rem 0 .95rem 1.4rem;
+  padding: calculate-rem(10px) 0 calculate-rem(10px) calculate-rem(18px);
   margin: 0;
   line-height: 1;
   text-align: left;
   background-color: $color4;
 }
-.quantity-row .quantity {
+.shopping-cart .table td {
+  vertical-align: middle;
+}
+.shopping-cart .quantity-row .quantity {
   border: 1px solid $color2;
   padding: 0 1rem;
   display: inline-block;
-  margin: auto 1.5rem;
+  margin: auto calculate-rem(20px);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.decrement,
-.increment {
+.shopping-cart .table .action {
+
+}
+.shopping-cart .table .fa-close {
+  display: block;
+  margin: 0;
+  padding: .5rem;
+}
+.shopping-cart .table .fa-close:hover {
+  color: $color2;
+}
+.shopping-cart .decrement,
+.shopping-cart .increment {
   padding: 0 .5rem;
+}
+.shopping-cart .table {
+  margin-bottom: 0;
 }

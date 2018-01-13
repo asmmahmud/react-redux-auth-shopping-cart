@@ -1,55 +1,90 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import AlertContainer from './containers/AlertContainer';
-
-import NavBarContainer from './containers/NavBarContainer';
-// import Home from './components/Home';
-import CallBackContainer from './containers/CallBackContainer';
-import CartContainer from './containers/CartContainer';
-import NewProductContainer from './containers/ProductContainer/NewContainer';
-import ProductContainer from './containers/ProductContainer';
-import OrdersContainer from './containers/OrdersContainer';
-import OrderDetailContainer from './containers/OrdersContainer/OrderDetailContainer';
-import Sidebar from './components/Sidebar';
-import './styles/App.css';
+import { TransitionGroup } from 'react-transition-group';
+import { FadeCSSTransitionWrapper } from './AnimatedWrappers';
+import Alert from './components/Alert';
+import NavigationBar from './components/NavigationBar';
+import CallBack from './components/CallBack';
+import NewProduct from './components/products/NewProduct';
+import Products from './components/Products';
+import Orders from './components/Orders';
+import OrderDetail from './components/Orders/OrderDetail';
+import Checkout from './components/Checkout';
+import NotFound from './components/NotFound';
+import SideMenu from './components/sidebar/SideMenu';
+import MiniCart from './components/sidebar/MiniCart';
+import './styles/App.scss';
 
 class App extends React.Component {
-  render () {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.state = {
+      isOpen: false,
+      isDropDownOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  toggleDropdown(e) {
+    e.preventDefault();
+    if (e.target.id === 'navbarDropdownMenuLink') {
+      this.setState({
+        isDropDownOpen: !this.state.isDropDownOpen
+      });
+    } else if (this.state.isDropDownOpen) {
+      this.setState({
+        isDropDownOpen: false
+      });
+    }
+  }
+  render() {
     return (
-      <div id='page'>
-        <NavBarContainer />
-        <AlertContainer />
-        <div className='container'>
-          <div className='row'>
-            <div className='col-sm-2'>
-              <Sidebar />
+      <div className="page" onClick={this.toggleDropdown}>
+        <NavigationBar
+          {...this.props}
+          toggle={this.toggle}
+          isOpen={this.state.isOpen}
+          isDropDownOpen={this.state.isDropDownOpen}
+        />
+        <div className="container-fluid">
+          <Alert />
+          <div className="row">
+            <div className="col-md-3 sidebar">
+              <MiniCart />
+              <SideMenu />
             </div>
-            <div className='col-sm-10'>
+            <TransitionGroup className="col-md-9 main-content">
               <Switch>
-                <Route path='/callback' component={CallBackContainer} />
-                <Route path='/home' title='React Shopping Cart' component={ProductContainer} />
+                <Route path="/callback" component={CallBack} />
+                <Route path="/home" component={Products} />
+                <Route path="/products/new" component={NewProduct} />
+                <Route path="/products" exact component={Products} />
                 <Route
-                  path='/products'
-                  title='React Shopping Cart - Products'
-                  exact
-                  component={ProductContainer}
+                  path="/orders/:orderId"
+                  render={props => {
+                    const Temp = FadeCSSTransitionWrapper(OrderDetail);
+                    return <Temp {...props} />;
+                  }}
                 />
                 <Route
-                  path='/products/new'
-                  title='React Shopping Cart - Add New Product'
-                  component={NewProductContainer}
+                  path="/order-success/:orderId"
+                  render={props => {
+                    const Temp = FadeCSSTransitionWrapper(OrderDetail);
+                    return <Temp {...props} />;
+                  }}
                 />
-                <Route path='/cart' component={CartContainer} />
-                <Route
-                  path='/orders'
-                  title='React Shopping Cart - All Orders'
-                  component={OrdersContainer}
-                />
-                <Route path='/order-success/:orderId' component={OrderDetailContainer} />
-                <Route path='/:categoryName' component={ProductContainer} />
-                <Redirect exact from='/' to='/products' />
+                <Route path="/orders" exact component={Orders} />
+                <Route path="/cart/checkout" component={Checkout} />
+                <Route path="/category/:categoryName" exact component={Products} />
+                <Redirect exact from="/" to="/products" />
+                <Route component={NotFound} />
               </Switch>
-            </div>
+            </TransitionGroup>
           </div>
         </div>
       </div>

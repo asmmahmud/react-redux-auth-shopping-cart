@@ -4,12 +4,12 @@ import { ACTIONS } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case ACTIONS.LOAD_ALL_PRODUCTS: {
+    case ACTIONS.PRODUCTS_ALL_LOADED: {
       return action.loadedProducts.reduce((allProduct, product) => {
         allProduct[product._id] = {
           ...product,
           productId: product._id,
-          price: parseFloat(product.price, 10),
+          price: parseFloat(product.price),
           quantity: +product.quantity
         };
         return allProduct;
@@ -18,16 +18,16 @@ export default (state = {}, action) => {
     case ACTIONS.ADD_TO_CART: {
       return dotProp.set(state, `${action.productId}.quantity`, qty => qty - 1);
     }
-    case ACTIONS.REMOVE_FROM_CART: {
+    case ACTIONS.SUBTRACT_FROM_CART: {
       return dotProp.set(state, `${action.productId}.quantity`, qty => qty + 1);
     }
     default:
       return state;
   }
 };
-export const productAddedReducer = (state, action) => {
+export const specialProductAddedReducer = (state, action) => {
   switch (action.type) {
-    case ACTIONS.NEW_PRODUCT_ADDED: {
+    case ACTIONS.NEW_PRODUCT_SUCCESS: {
       const allProducts = {
         ...state.allProducts,
         [action.addedProduct._id]: action.addedProduct
@@ -40,39 +40,37 @@ export const productAddedReducer = (state, action) => {
   }
 };
 
-export const getFilteredProductBrands = createSelector(
-  [state => state.allProducts, (state, categoryName) => categoryName],
-  (allProducts, categoryName) => {
-    if (categoryName) {
-      return Object.keys(allProducts).reduce((brandList, productId) => {
-        if (
-          allProducts[productId].category === categoryName &&
-          allProducts[productId].brand &&
-          brandList.indexOf(allProducts[productId].brand) === -1
-        ) {
-          brandList.push(allProducts[productId].brand);
-        }
-        return brandList;
-      }, []);
+export const getFilteredProductBrands = createSelector([allProducts => allProducts], allProducts => {
+  return allProducts.reduce((brandList, product) => {
+    if (product.brand && brandList.indexOf(product.brand) === -1) {
+      brandList.push(product.brand);
     }
-    return Object.keys(allProducts).reduce((brandList, productId) => {
-      if (allProducts[productId].brand && brandList.indexOf(allProducts[productId].brand) === -1) {
-        brandList.push(allProducts[productId].brand);
-      }
-      return brandList;
-    }, []);
-  }
-);
+    return brandList;
+  }, []);
+});
 export const getFilteredProducts = createSelector(
   [state => state.allProducts, (state, categoryName) => categoryName],
   (allProducts, categoryName) => {
-    return Object.keys(allProducts)
+    const filteredProducts = Object.keys(allProducts)
       .filter(productId => {
+        const product = allProducts[productId];
         if (categoryName) {
-          return allProducts[productId].category === categoryName;
+          return product.category === categoryName;
         }
         return true;
       })
       .map(productId => allProducts[productId]);
+
+    filteredProducts.sort((productA, productB) => {
+      const nameA = productA.brand,
+        nameB = productB.brand;
+      if (nameA < nameB) {
+        return -1;
+      } else if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    return filteredProducts;
   }
 );

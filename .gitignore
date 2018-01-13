@@ -24,4 +24,9 @@ yarn-error.log*
 /.vscode
 /src-videolist
 /src/config.js
+/src/components_2
+/src/components/products/Product2.js
+/src/reducers2
+/src/containers_old
+/src/App2.js
 src/styles/*.css

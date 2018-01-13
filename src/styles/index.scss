@@ -1,6 +1,7 @@
-@import 'styles/_variable.scss';
+@import './_variable.scss';
+@import "./bootstrap.scss";
 body {
-  font-family: 'Roboto Condensed', sans-serif;
+  color: $default-text-color;
 }
 button,
 a,
@@ -18,19 +19,107 @@ a[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
 }
+img.user-avatar {
+  width: 32px;
+}
+table.table thead th {
+  color: $mid-grey;
+  font-weight: normal;
+}
+table.table tbody td {
+  font-size: calculate-rem(14px);
+}
+.fade-enter {
+  opacity: 0.01;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 250ms ease-in;
+}
+.alert {
+  padding: calculate-rem(12px) calculate-rem(20px);
+}
+.alert.alert-warning {
+  background-color: rgba(darken($color3, 25%), 0.5);
+  border-color: $color3;
+  color: $dark-grey;
+}
+.alert.alert-success {
+  background-color: rgba(darken($color5, 15%), 0.9);
+  border-color: $color5;
+  color: $light-grey;
+}
+.alert.alert-danger {
+  background-color: rgba(darken($color2, 10%), 0.9);
+  border-color: $color2;
+  color: $light-grey;
+}
+.alert.navbar-light {
+  box-shadow: 0 0 15px rgba($color-black, 0.3);
+  margin-bottom: calculate-rem(20px);
+}
+
+.card-body .table {
+  margin-bottom: 0;
+}
+.card .card-header {
+  padding: .5rem 1.25rem;
+}
+.card .card-header .card-title {
+  margin: 0;
+}
 .side-nav {
-  .nav-link {
-    color: $color1;
-  }
-  .nav-link:hover,
-  .nav-link:focus {
-    color: rgba($color2, 0.9);
-  }
-  .nav-link.active {
-    color: rgba($grey, 0.9);
-  }
-  .nav-link.active:hover,
-  .nav-link.active:focus {
-    color: rgba($grey, 0.9);
-  }
+  margin-top: 1rem;
+  box-shadow: 0 5px 10px 0 rgba($color-black, 0.1);
+  transition: all 0.4s ease-out;
+}
+.side-nav .card-header {
+  color: $light-grey;
+  background-color: $color4;
+  border-bottom: 2px solid darken($color4, 5%);
+}
+.side-nav .card-header .card-title {
+  text-align: left;
+}
+.side-nav .nav-link {
+  padding: .3rem 1rem .3rem 0;
+  color: $color1;
+}
+.side-nav .nav-link:hover,
+.side-nav .nav-link:focus {
+  color: rgba($color2, 0.9);
+}
+.side-nav .nav-link.active {
+  cursor: default;
+  color: rgba($color1, .75);
+}
+.side-nav .nav-link.active span {
+  border-bottom: 2px solid $color5;
+}
+.side-nav .nav-link.active:hover,
+.side-nav .nav-link.active:focus {
+  //box-shadow: 0 0 15px rgba($color2, 0.3);
+}
+img.ajax-loader {
+  display: block;
+  margin: 1rem auto;
+}
+.fa {
+  display: inline-block;
+  margin-right: .5rem;
+}
+.side-nav .fa {
+  font-size: 1rem;
+}
+.side-nav .fa-mobile {
+  font-size: 1.5rem;
+  margin-left: 3px;
+  margin-right: 10px;
 }

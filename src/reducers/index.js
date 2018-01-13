@@ -1,30 +1,21 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import reduceReducers from 'reduce-reducers';
-import {reducer as formReducer} from 'redux-form';
-import alertReducer from './alertReducer';
-import productReducer, {productAddedReducer} from './productReducer';
-import formStatusReducer from './formStatusReducer';
-import loginStatusReducer from './loginStatusReducer';
-import cartReducer from './cartReducer';
-import ordersReducer from './ordersReducer';
 import userProfileReducer from './userProfileReducer';
-/* export default combineReducers({
-  formStatus: formStatusReducer,
-  alert: alertReducer,
-  allProducts: productReducer
-}); */
+import allStatusesReducer from './allStatusesReducer';
+import alertReducer from './alertReducer';
+import productReducer, { specialProductAddedReducer } from './productReducer';
+import cartReducer, { specialCartReducer } from './cartReducer';
+import ordersReducer from './ordersReducer';
 
 const initialCombinedReducer = combineReducers({
   userProfile: userProfileReducer,
-  loginStatus: loginStatusReducer,
-  formStatus: formStatusReducer,
+  allStatuses: allStatusesReducer,
   alert: alertReducer,
   allProducts: productReducer,
   cart: cartReducer,
-  allOrders: ordersReducer,
-  form: formReducer
+  allOrders: ordersReducer
 });
 
-const rootReducer = reduceReducers(initialCombinedReducer, productAddedReducer);
+const rootReducer = reduceReducers(initialCombinedReducer, specialProductAddedReducer, specialCartReducer);
 
 export default rootReducer;

@@ -1,54 +1,87 @@
 import React from 'react';
-import '../styles/Products.scss';
-import Wrapper from '../hoc/Wrapper';
-import Product from './products/List';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import CartContainer from '../containers/CartContainer';
+import FilterBar from './products/FilterBar';
+import Product from './products/Product';
+import { addToCart } from '../actions/cart-action';
+import { getFilteredProducts, getFilteredProductBrands } from '../reducers/productReducer';
+import { FadeCSSTransitionWrapper } from '../AnimatedWrappers';
+import '../styles/Products.scss';
+import ajaxLoader from '../assets/loading.svg';
 
-class Products extends React.PureComponent {
-  constructor (props) {
-    super(props);
+class ProductsComponent extends React.PureComponent {
+  constructor() {
+    super();
     this.state = {
       products: [],
       brand: '',
       sort: 'brand',
-      sortOrder: 'asc'
+      sortOrder: 'asc',
+      searchTerm: ''
     };
     this.addnew = this.addNewProduct.bind(this);
     this.sortAndFilterHandler = this.sortAndFilterHandler.bind(this);
+    this.searchProducts = this.searchProducts.bind(this);
+    this.sortOrderChange = this.sortOrderChange.bind(this);
   }
-  componentDidMount () {
+  searchProducts(e) {
+    const searchTerm = e.target.value;
+    this.updateState({ brand: '', sort: 'brand', sortOrder: 'asc', searchTerm: searchTerm }, this.props.products);
+  }
+  sortOrderChange() {
+    const sortDir = this.state.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.updateState({ sortOrder: sortDir }, this.props.products);
+  }
+  sortAndFilterHandler(e) {
+    const target = e.target;
+    this.updateState({ [target.name]: target.value }, this.props.products);
+  }
+  componentDidMount() {
     if (this.props.products !== this.state.products) {
-      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', products: this.props.products });
+      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', searchTerm: '', products: this.props.products });
     }
   }
-
-  componentWillReceiveProps (nextProps) {
-    // console.log('componentWillReceiveProps: ', nextProps.products);
+  componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.categoryName !== nextProps.categoryName) {
-      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', products: nextProps.products });
+      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', searchTerm: '', products: nextProps.products });
     } else if (nextProps.products !== this.props.products) {
       this.updateState(
         {
           brand: this.state.brand,
           sort: this.state.sort,
-          sortOrder: this.state.sortOrder
+          sortOrder: this.state.sortOrder,
+          searchTerm: ''
         },
         nextProps.products
       );
     }
   }
 
-  updateState (newFilter, allProducts) {
+  updateState(newFilter, allProducts) {
     this.setState(prevState => {
       const nextState = {
         ...prevState,
         ...newFilter
       };
       const brand = nextState.brand;
+      const searchTerm = nextState.searchTerm.toLowerCase();
       const products = allProducts.filter(product => {
-        if (brand) {
+        if (brand && searchTerm) {
+          return (
+            product.brand === brand &&
+            (product.name.toLowerCase().includes(searchTerm) ||
+              product.category.toLowerCase().includes(searchTerm) ||
+              (product.model && product.model.toLowerCase().includes(searchTerm)))
+          );
+        } else if (brand) {
           return product.brand === brand;
+        } else if (searchTerm) {
+          return (
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.brand.toLowerCase().includes(searchTerm) ||
+            product.category.toLowerCase().includes(searchTerm) ||
+            (product.model && product.model.toLowerCase().includes(searchTerm))
+          );
         }
         return true;
       });
@@ -68,145 +101,130 @@ class Products extends React.PureComponent {
     });
   }
 
-  sortAndFilterHandler (e) {
-    const target = e.target;
-    this.updateState({ [target.name]: target.value }, this.props.products);
-  }
-
-  addNewProduct () {
+  addNewProduct() {
     this.props.history.replace('/products/new');
   }
 
-  render () {
+  render() {
     let documentTitle,
+      pageTitle,
       productsHtml,
       allProducts = this.state.products;
     if (this.props.categoryName) {
-      documentTitle = (
-        <Helmet>
-          <title>Products - {this.props.categoryName}</title>
-        </Helmet>
-      );
+      pageTitle = this.props.categoryName;
+      documentTitle = this.props.categoryName;
     } else {
-      documentTitle = (
-        <Helmet>
-          <title>All Products</title>
-        </Helmet>
-      );
+      pageTitle = 'All Products';
+      documentTitle = 'All Products';
     }
-    if (!allProducts.length && this.props.categoryName) {
+    if (this.props.productsLoading) {
       productsHtml = (
-        <div className='col-sm-12'>
-          <h4 className='text-center'>
-            No Product found on the category <strong>{this.props.categoryName}</strong>
-          </h4>
-        </div>
-      );
-    } else if (!allProducts.length) {
-      productsHtml = (
-        <div className='col-sm-12'>
-          <h4 className='text-center'>Loading.......</h4>
+        <div className="col-md-auto">
+          <img src={ajaxLoader} className="img-fluid ajax-loader mt-5" width="250" alt="products are loading....." />
         </div>
       );
     } else {
-      productsHtml = allProducts.map(product => {
-        return (
-          <Product
-            key={product.productId}
-            productId={product.productId}
-            product={product}
-            addToCart={() => this.props.addToCart(product.productId)}
-          />
+      if (!allProducts.length && this.props.categoryName) {
+        productsHtml = (
+          <div className="col-md-12">
+            <div className="alert alert-warning text-center my-5">
+              <h6>
+                <i className="fa fa-warning" aria-hidden="true" />
+                No Product found on the category <strong>{this.props.categoryName}</strong>
+              </h6>
+            </div>
+          </div>
         );
-      });
+      } else if (!allProducts.length) {
+        productsHtml = (
+          <div className="col-md-12">
+            <div className="alert alert-warning text-center my-5">
+              <h6>
+                <i className="fa fa-warning" aria-hidden="true" /> No Product Found
+              </h6>
+            </div>
+          </div>
+        );
+      } else {
+        productsHtml = allProducts.map(product => {
+          return (
+            <Product
+              key={product.productId}
+              productId={product.productId}
+              product={product}
+              addToCart={() => this.props.addToCart(product.productId)}
+            />
+          );
+        });
+      }
     }
+
     return (
-      <Wrapper>
-        {documentTitle}
-        <CartContainer />
-        {this.props.loginStatus && (
-          <div className='row justify-content-end mb-4'>
-            <div className='col-sm-2'>
-              <button className='btn btn-primary' onClick={this.addnew}>
+      <div className="product-list">
+        <Helmet>
+          <title>{documentTitle}</title>
+        </Helmet>
+
+        <div className="row mb-2">
+          <div className="col-md-4">
+            <h5 className="page-title">
+              <i className="fa fa-clone" aria-hidden="true" /> {pageTitle}
+            </h5>
+          </div>
+          {!this.props.productsLoading &&
+            (this.state.products.length > 0 && (
+              <div className="col-md-4 product-count">
+                <i className="fa fa-check-square" aria-hidden="true" />
+                <span className="count-line">{this.state.products.length} products found.</span>
+              </div>
+            ))}
+          {!this.props.productsLoading &&
+            (this.state.products.length === 0 && (
+              <div className="col-md-4 product-count">
+                <i className="fa fa-warning" aria-hidden="true" />
+                <span className="count-line">No product found.</span>
+              </div>
+            ))}
+          {this.props.loginStatus && (
+            <div className="col-md-4 text-right">
+              <button className="btn btn-primary" onClick={this.addnew}>
                 Add New Product
               </button>
             </div>
-          </div>
-        )}
-
-        <div className='row justify-content-center'>
-          <div className='col-sm-12'>
-            <div className='product-bar d-flex justify-content-between'>
-              {Object.keys(this.props.brandList).length && (
-                <div className='filter'>
-                  <div className='form-group row'>
-                    <label htmlFor='brand' className='col-sm-2 col-form-label'>
-                      Filter
-                    </label>
-                    <div className='col-sm-10'>
-                      <select
-                        onChange={this.sortAndFilterHandler}
-                        value={this.state.brand}
-                        className='form-control'
-                        name='brand'
-                        id='brand'
-                      >
-                        <option value=''>All</option>
-                        {this.props.brandList.map(brand => (
-                          <option key={brand} value={brand}>
-                            {brand}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div className='d-flex justify-content-between sorting'>
-                <div className='form-group row'>
-                  <label htmlFor='sort' className='col-sm-4 col-form-label'>
-                    Sorting:
-                  </label>
-                  <div className='col-sm-7'>
-                    <select
-                      onChange={this.sortAndFilterHandler}
-                      value={this.state.sort}
-                      className='form-control'
-                      name='sort'
-                      id='sort'
-                    >
-                      <option value='brand'>Brand</option>
-                      <option value='price'>Price</option>
-                      <option value='quantity'>Quantity</option>
-                    </select>
-                  </div>
-                </div>
-                <div className='form-group row'>
-                  <label htmlFor='sortOrder' className='col-sm-4 col-form-label'>
-                    Order:
-                  </label>
-                  <div className='col-sm-7'>
-                    <select
-                      onChange={this.sortAndFilterHandler}
-                      value={this.state.sortOrder}
-                      className='form-control'
-                      name='sortOrder'
-                      id='sortOrder'
-                    >
-                      <option value='asc'>Ascending</option>
-                      <option value='desc'>Descending</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
 
-        <div className='row justify-content-center mb-5'>{productsHtml}</div>
-      </Wrapper>
+        {!this.props.productsLoading &&
+          (Object.keys(this.props.brandList).length > 0 && (
+            <FilterBar
+              sortAndFilterHandler={this.sortAndFilterHandler}
+              brandList={this.props.brandList}
+              brand={this.state.brand}
+              sort={this.state.sort}
+              sortOrder={this.state.sortOrder}
+              sortOrderChange={this.sortOrderChange}
+              searchTerm={this.state.searchTerm}
+              searchProducts={this.searchProducts}
+            />
+          ))}
+        <div className="row justify-content-center mb-5">{productsHtml}</div>
+      </div>
     );
   }
 }
 
-export default Products;
+const mapStateToProps = (state, props) => {
+  const params = {
+    loginStatus: state.allStatuses.loginStatus,
+    productsLoading: state.allStatuses.productsLoading,
+    categoryName: props.match && props.match.params.categoryName ? props.match.params.categoryName : ''
+  };
+
+  params.products = getFilteredProducts(state, params.categoryName);
+  params.brandList = getFilteredProductBrands(params.products);
+  return params;
+};
+
+const Products = connect(mapStateToProps, { addToCart })(ProductsComponent);
+
+export default FadeCSSTransitionWrapper(Products);
