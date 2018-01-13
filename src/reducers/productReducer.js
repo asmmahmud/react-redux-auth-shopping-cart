@@ -15,6 +15,17 @@ export default (state = {}, action) => {
         return allProduct;
       }, {});
     }
+    case ACTIONS.NEW_PRODUCT_SUCCESS: {
+      return {
+        ...state,
+        [action.addedProduct._id]: {
+          ...action.addedProduct,
+          productId: action.addedProduct._id,
+          price: parseFloat(action.addedProduct.price),
+          quantity: +action.addedProduct.quantity
+        }
+      };
+    }
     case ACTIONS.ADD_TO_CART: {
       return dotProp.set(state, `${action.productId}.quantity`, qty => qty - 1);
     }
@@ -25,7 +36,7 @@ export default (state = {}, action) => {
       return state;
   }
 };
-export const specialProductAddedReducer = (state, action) => {
+/*export const specialProductAddedReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.NEW_PRODUCT_SUCCESS: {
       const allProducts = {
@@ -38,7 +49,7 @@ export const specialProductAddedReducer = (state, action) => {
     default:
       return state;
   }
-};
+};*/
 
 export const getFilteredProductBrands = createSelector([allProducts => allProducts], allProducts => {
   return allProducts.reduce((brandList, product) => {

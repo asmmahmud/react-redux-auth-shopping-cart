@@ -3,7 +3,7 @@ import reduceReducers from 'reduce-reducers';
 import userProfileReducer from './userProfileReducer';
 import allStatusesReducer from './allStatusesReducer';
 import alertReducer from './alertReducer';
-import productReducer, { specialProductAddedReducer } from './productReducer';
+import productReducer from './productReducer';
 import cartReducer, { specialCartReducer } from './cartReducer';
 import ordersReducer from './ordersReducer';
 
@@ -16,6 +16,6 @@ const initialCombinedReducer = combineReducers({
   allOrders: ordersReducer
 });
 
-const rootReducer = reduceReducers(initialCombinedReducer, specialProductAddedReducer, specialCartReducer);
+const rootReducer = reduceReducers(initialCombinedReducer, specialCartReducer);
 
 export default rootReducer;

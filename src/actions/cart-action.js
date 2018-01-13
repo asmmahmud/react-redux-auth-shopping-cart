@@ -64,7 +64,7 @@ export const addToCart = productId => (dispatch, getState) => {
         .post(API_URL, postData, { headers })
         .then(response => {
           if (response.data && Array.isArray(response.data.items) && response.data.items.length > 0) {
-            console.log(response.data.items);
+            // console.log(response.data.items);
             dispatch({
               type: ACTIONS.ADD_TO_CART,
               productId: productId
@@ -107,7 +107,7 @@ export const subtractFromCart = productId => (dispatch, getState) => {
         .post(API_URL, postData, { headers })
         .then(response => {
           if (response.data && response.data.email) {
-            console.log(response.data.items);
+            // console.log(response.data.items);
             dispatch({
               type: ACTIONS.SUBTRACT_FROM_CART,
               productId: productId
@@ -151,7 +151,7 @@ export const removeFromCart = productId => (dispatch, getState) => {
         .post(API_URL, postData, { headers })
         .then(response => {
           if (response.data && response.data.email) {
-            console.log(response.data.items);
+            // console.log(response.data.items);
             dispatch({
               type: ACTIONS.REMOVE_FROM_CART,
               productId: productId

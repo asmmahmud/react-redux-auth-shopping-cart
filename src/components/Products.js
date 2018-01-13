@@ -50,7 +50,7 @@ class ProductsComponent extends React.PureComponent {
           brand: this.state.brand,
           sort: this.state.sort,
           sortOrder: this.state.sortOrder,
-          searchTerm: ''
+          searchTerm: this.state.searchTerm
         },
         nextProps.products
       );
