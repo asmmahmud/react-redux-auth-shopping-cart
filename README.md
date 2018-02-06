@@ -18,4 +18,4 @@
   2) Router animation
   3) Authentication system with Auth0.com (jwt)
   4) Sass
-  
+  5) Bootstrap 4 framework
