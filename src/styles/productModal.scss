@@ -1,0 +1,48 @@
+@import './_variable.scss';
+@media (min-width: 767px) {
+  .modal-dialog.product-modal {
+    max-width: 700px;
+  }
+  .product-modal .product-details {
+    padding: 2rem;
+  }
+}
+@media (min-width: 991px) {
+  .modal-dialog.product-modal {
+    max-width: 850px;
+  }
+}
+.product-modal .product-details {
+  display: flex;
+  justify-content: center;
+  background-color: lighten($light-grey, 20%);
+  padding: 1.5rem;
+}
+.product-modal .product-details .left-portion {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: center;
+}
+.product-modal .product-details .right-portion {
+  flex: 3 1 60%;
+  text-align: center;
+  align-self: flex-start;
+}
+.product-modal .product-details .right-portion img.product-image {
+  width: 92%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+}
+.product-modal table.product-attributes {
+  width: 90%;
+  font-size: calculate-rem(14px);
+}
+.product-modal table.product-attributes tbody tr td {
+  padding: 0.5rem .5rem .5rem 0;
+  vertical-align: middle;
+  text-align: left;
+}
+.product-modal table.product-attributes td.attr-col {
+  width: 50%;
+}

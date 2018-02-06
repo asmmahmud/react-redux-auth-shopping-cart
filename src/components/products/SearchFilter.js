@@ -5,7 +5,7 @@ const SearchFilter = props => {
     <input
       type="text"
       value={props.searchTerm}
-      className="form-control product-search-control"
+      className="form-control form-control-sm product-search-control"
       onChange={props.searchProducts}
       name="filter_search"
       placeholder="Search Product"

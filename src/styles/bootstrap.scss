@@ -1,12 +1,13 @@
+// new
+
 @import "~bootstrap/scss/functions";
 @import "bootstrap_variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
-//@import "print";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/images";
-//@import "code";
+@import "~bootstrap/scss/code";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/forms";
@@ -28,8 +29,9 @@
 @import "~bootstrap/scss/media";
 @import "~bootstrap/scss/list-group";
 @import "~bootstrap/scss/close";
-//@import "modal";
-//@import "tooltip";
-//@import "popover";
-//@import "carousel";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+//@import "~bootstrap/scss/popover";
+//@import "~bootstrap/scss/carousel";
 @import "~bootstrap/scss/utilities";
+//@import "~bootstrap/scss/print";

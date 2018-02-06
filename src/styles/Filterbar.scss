@@ -1,0 +1,70 @@
+@import './_variable.scss';
+.filter-bar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: calculate-rem(8px) calculate-rem(10px) calculate-rem(10px);
+  //background-color: $bg-grey;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 1rem 0 0;
+  box-shadow: 0 0 15px 0 rgba($color-black, 0.25);
+}
+.filter-bar .brand-filter {
+  flex: 1 1 20%;
+}
+.filter-bar .sorting-group {
+  flex: 1 1 30%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.filter-bar .product-search {
+  flex: 2 1 30%;
+}
+.sorting-group .direction {
+  margin-left: .5rem;
+  border: 1px solid $light-grey;
+}
+.sorting-group .direction:hover {
+  border-color: $grey;
+}
+.sorting-group .direction i.fa:hover {
+  color: $color2;
+}
+.sorting-group .direction .fa-sort-asc,
+.sorting-group .direction .fa-sort-desc {
+  display: block;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.sorting-group .direction .fa-sort-asc {
+  padding: .8rem .8rem .2rem;
+}
+.sorting-group .direction .fa-sort-desc {
+  padding: .5rem .8rem .5rem;
+}
+.product-search .input-group-text {
+  font-size: 0.875rem;
+}
+@media only screen and (max-width: 768px) {
+  .filter-bar {
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .filter-bar .brand-filter {
+    flex: 1 1 100%;
+  }
+  .filter-bar .sorting-group {
+    margin: 1rem;
+    flex: 1 1 100%;
+  }
+  .filter-bar .product-search {
+    flex: 1 1 100%;
+  }
+}

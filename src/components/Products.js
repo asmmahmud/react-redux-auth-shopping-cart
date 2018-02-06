@@ -8,6 +8,7 @@ import { getFilteredProducts, getFilteredProductBrands } from '../reducers/produ
 import { FadeCSSTransitionWrapper } from '../AnimatedWrappers';
 import '../styles/Products.scss';
 import ajaxLoader from '../assets/loading.svg';
+import ProductModal from './products/ProductModal';
 
 class ProductsComponent extends React.PureComponent {
   constructor() {
@@ -17,12 +18,17 @@ class ProductsComponent extends React.PureComponent {
       brand: '',
       sort: 'brand',
       sortOrder: 'asc',
-      searchTerm: ''
+      searchTerm: '',
+      modalProduct: null,
+      isModalOpen: false
     };
     this.addnew = this.addNewProduct.bind(this);
     this.sortAndFilterHandler = this.sortAndFilterHandler.bind(this);
     this.searchProducts = this.searchProducts.bind(this);
     this.sortOrderChange = this.sortOrderChange.bind(this);
+    this.modalToggle = this.modalToggle.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
   searchProducts(e) {
     const searchTerm = e.target.value;
@@ -97,14 +103,30 @@ class ProductsComponent extends React.PureComponent {
         return 0;
       });
       nextState.products = products;
+      if (prevState.modalProduct) {
+        nextState.modalProduct = products.find(product => product.productId === prevState.modalProduct.productId);
+      }
       return nextState;
     });
   }
-
   addNewProduct() {
     this.props.history.replace('/products/new');
   }
-
+  openModal(productId) {
+    const modalProduct = this.state.products.find(product => product.productId === productId);
+    this.setState({
+      isModalOpen: true,
+      modalProduct: modalProduct
+    });
+  }
+  modalToggle() {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen
+    });
+  }
+  addToCart(productId) {
+    this.props.addToCart(productId);
+  }
   render() {
     let documentTitle,
       pageTitle,
@@ -148,12 +170,7 @@ class ProductsComponent extends React.PureComponent {
       } else {
         productsHtml = allProducts.map(product => {
           return (
-            <Product
-              key={product.productId}
-              productId={product.productId}
-              product={product}
-              addToCart={() => this.props.addToCart(product.productId)}
-            />
+            <Product key={product.productId} product={product} addToCart={this.addToCart} openModal={this.openModal} />
           );
         });
       }
@@ -208,6 +225,12 @@ class ProductsComponent extends React.PureComponent {
             />
           ))}
         <div className="row justify-content-center mb-5">{productsHtml}</div>
+        <ProductModal
+          product={this.state.modalProduct}
+          toggle={this.modalToggle}
+          addToCart={this.addToCart}
+          isModalOpen={this.state.isModalOpen}
+        />
       </div>
     );
   }
