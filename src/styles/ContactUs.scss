@@ -1,0 +1,34 @@
+@import './_variable.scss';
+.contact-us-page {
+  margin-top: 2.5rem;
+}
+.contact-us-page .social-networks {
+  width: 100%;
+}
+.contact-us-page .social-networks a .fa {
+  font-size: calculate-rem(22px);
+  font-weight: bold;
+  transition: 0.2s;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+.contact-us-page .social-networks a {
+  display: block;
+  text-align: center;
+}
+.contact-us-page .social-networks a:hover {
+  background-color: $grey;
+  text-decoration: none;
+  color: $color4;
+}
+.contact-us-page .upwork-icon {
+  width: calculate-rem(26px);
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.contact-us-page a {
+  transition: all 0.2s ease-out;
+}

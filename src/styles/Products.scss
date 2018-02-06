@@ -25,5 +25,11 @@
   font-size: 1.2rem;
   color: $color4;
 }
-
-
+.product-list .pagination-row {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+.product-list .pagination-row .col-md-auto {
+  display: flex;
+  align-items: center;
+}

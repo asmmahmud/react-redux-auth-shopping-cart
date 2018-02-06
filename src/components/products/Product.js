@@ -63,7 +63,7 @@ class Product extends React.PureComponent {
         );
       });
     return (
-      <div className="col-lg-6 col-xl-4">
+      <div className="col-md-6 col-xl-4">
         <div className="card product-box">
           <div className="card-header">
             <div className="top-part" />

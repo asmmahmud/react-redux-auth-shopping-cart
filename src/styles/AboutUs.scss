@@ -1,0 +1,16 @@
+@import './_variable.scss';
+
+.about-us {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+.about-us .title {
+  font-size: 2rem;
+}
+.about-us .desc {
+  margin: 2rem auto;
+  width: 80%;
+}
+.about-us .desc h5 {
+  font-size: 1.2rem;
+}

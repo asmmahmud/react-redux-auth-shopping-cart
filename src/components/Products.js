@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import FilterBar from './products/FilterBar';
+import Pagination from './products/Pagination';
 import Product from './products/Product';
 import { addToCart } from '../actions/cart-action';
 import { getFilteredProducts, getFilteredProductBrands } from '../reducers/productReducer';
@@ -14,47 +15,105 @@ class ProductsComponent extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      products: [],
+      filteredProducts: [],
+      currentProducts: [],
       brand: '',
       sort: 'brand',
       sortOrder: 'asc',
+      currentPage: 1,
       searchTerm: '',
       modalProduct: null,
       isModalOpen: false
     };
+    this.pageSize = 9;
     this.addnew = this.addNewProduct.bind(this);
     this.sortAndFilterHandler = this.sortAndFilterHandler.bind(this);
     this.searchProducts = this.searchProducts.bind(this);
     this.sortOrderChange = this.sortOrderChange.bind(this);
     this.modalToggle = this.modalToggle.bind(this);
+    this.goToPage = this.goToPage.bind(this);
     this.openModal = this.openModal.bind(this);
     this.addToCart = this.addToCart.bind(this);
   }
   searchProducts(e) {
     const searchTerm = e.target.value;
-    this.updateState({ brand: '', sort: 'brand', sortOrder: 'asc', searchTerm: searchTerm }, this.props.products);
+    this.updateState(
+      {
+        brand: '',
+        sort: 'brand',
+        sortOrder: 'asc',
+        currentPage: 1,
+        searchTerm: searchTerm
+      },
+      this.props.products
+    );
   }
   sortOrderChange() {
     const sortDir = this.state.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.updateState({ sortOrder: sortDir }, this.props.products);
+    this.updateState({ sortOrder: sortDir, currentPage: 1 }, this.props.products);
   }
   sortAndFilterHandler(e) {
     const target = e.target;
-    this.updateState({ [target.name]: target.value }, this.props.products);
+    this.updateState({ [target.name]: target.value, currentPage: 1 }, this.props.products);
+  }
+  goToPage(pageNo) {
+    console.log('goToPage: ', pageNo);
+    this.processPagination(pageNo);
+  }
+  processPagination(pageNo) {
+    const startPos = this.pageSize * (pageNo - 1);
+    let endPos = startPos + this.pageSize;
+    if (this.state.filteredProducts.length < endPos) {
+      endPos = this.state.filteredProducts.length;
+    }
+    const currentProducts = this.state.filteredProducts.slice(startPos, endPos);
+    this.setState({
+      currentPage: pageNo,
+      currentProducts: currentProducts
+    });
   }
   componentDidMount() {
-    if (this.props.products !== this.state.products) {
-      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', searchTerm: '', products: this.props.products });
+    if (this.props.products !== this.state.filteredProducts) {
+      const start = 0;
+      let endPos = this.pageSize;
+      if (this.props.products.length < endPos) {
+        endPos = this.props.products.length;
+      }
+      const currentProducts = this.props.products.slice(start, endPos);
+      this.setState({
+        brand: '',
+        sort: 'brand',
+        sortOrder: 'asc',
+        currentPage: 1,
+        searchTerm: '',
+        filteredProducts: this.props.products,
+        currentProducts: currentProducts
+      });
     }
   }
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.categoryName !== nextProps.categoryName) {
-      this.setState({ brand: '', sort: 'brand', sortOrder: 'asc', searchTerm: '', products: nextProps.products });
+      const start = 0;
+      let endPos = this.pageSize;
+      if (nextProps.products.length < endPos) {
+        endPos = nextProps.products.length;
+      }
+      const currentProducts = nextProps.products.slice(start, endPos);
+      this.setState({
+        brand: '',
+        sort: 'brand',
+        sortOrder: 'asc',
+        currentPage: 1,
+        searchTerm: '',
+        filteredProducts: nextProps.products,
+        currentProducts: currentProducts
+      });
     } else if (nextProps.products !== this.props.products) {
       this.updateState(
         {
           brand: this.state.brand,
           sort: this.state.sort,
+          currentPage: this.state.currentPage,
           sortOrder: this.state.sortOrder,
           searchTerm: this.state.searchTerm
         },
@@ -102,10 +161,19 @@ class ProductsComponent extends React.PureComponent {
         }
         return 0;
       });
-      nextState.products = products;
+
+      nextState.filteredProducts = products;
+      const start = 0;
+      let endPos = this.pageSize;
+      if (products.length < endPos) {
+        endPos = products.length;
+      }
+      nextState.currentProducts = products.slice(start, endPos);
+
       if (prevState.modalProduct) {
         nextState.modalProduct = products.find(product => product.productId === prevState.modalProduct.productId);
       }
+
       return nextState;
     });
   }
@@ -131,7 +199,11 @@ class ProductsComponent extends React.PureComponent {
     let documentTitle,
       pageTitle,
       productsHtml,
-      allProducts = this.state.products;
+      currentProducts = this.state.currentProducts,
+      productCount = this.state.filteredProducts.length;
+
+    console.log(currentProducts);
+
     if (this.props.categoryName) {
       pageTitle = this.props.categoryName;
       documentTitle = this.props.categoryName;
@@ -146,29 +218,29 @@ class ProductsComponent extends React.PureComponent {
         </div>
       );
     } else {
-      if (!allProducts.length && this.props.categoryName) {
+      if (!productCount && this.props.categoryName) {
         productsHtml = (
           <div className="col-md-12">
             <div className="alert alert-warning text-center my-5">
               <h6>
-                <i className="fa fa-warning" aria-hidden="true" />
+                <i className="fa fa-warning" />
                 No Product found on the category <strong>{this.props.categoryName}</strong>
               </h6>
             </div>
           </div>
         );
-      } else if (!allProducts.length) {
+      } else if (!productCount) {
         productsHtml = (
           <div className="col-md-12">
             <div className="alert alert-warning text-center my-5">
               <h6>
-                <i className="fa fa-warning" aria-hidden="true" /> No Product Found
+                <i className="fa fa-warning" /> No Product Found
               </h6>
             </div>
           </div>
         );
       } else {
-        productsHtml = allProducts.map(product => {
+        productsHtml = currentProducts.map(product => {
           return (
             <Product key={product.productId} product={product} addToCart={this.addToCart} openModal={this.openModal} />
           );
@@ -185,20 +257,20 @@ class ProductsComponent extends React.PureComponent {
         <div className="row mb-2">
           <div className="col-md-4">
             <h5 className="page-title">
-              <i className="fa fa-clone" aria-hidden="true" /> {pageTitle}
+              <i className="fa fa-clone" /> <span>{pageTitle}</span>
             </h5>
           </div>
           {!this.props.productsLoading &&
-            (this.state.products.length > 0 && (
+            (productCount > 0 && (
               <div className="col-md-4 product-count">
                 <i className="fa fa-check-square" aria-hidden="true" />
-                <span className="count-line">{this.state.products.length} products found.</span>
+                <span className="count-line">{productCount} products found.</span>
               </div>
             ))}
           {!this.props.productsLoading &&
-            (this.state.products.length === 0 && (
+            (!productCount && (
               <div className="col-md-4 product-count">
-                <i className="fa fa-warning" aria-hidden="true" />
+                <i className="fa fa-warning" />
                 <span className="count-line">No product found.</span>
               </div>
             ))}
@@ -224,6 +296,19 @@ class ProductsComponent extends React.PureComponent {
               searchProducts={this.searchProducts}
             />
           ))}
+        {productCount > 0 && (
+          <div className="row pagination-row">
+            <div className="col-md-auto">
+              <Pagination
+                className="product-pagination"
+                pageSize={this.pageSize}
+                currentPage={this.state.currentPage}
+                productCount={productCount}
+                goToPage={this.goToPage}
+              />
+            </div>
+          </div>
+        )}
         <div className="row justify-content-center mb-5">{productsHtml}</div>
         <ProductModal
           product={this.state.modalProduct}

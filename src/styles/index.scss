@@ -19,6 +19,10 @@ a[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
 }
+img.ajax-loader-sm {
+  width: 32px;
+  margin-top: 1.5rem;
+}
 img.user-avatar {
   width: 32px;
 }

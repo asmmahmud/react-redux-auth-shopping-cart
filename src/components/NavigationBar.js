@@ -56,10 +56,16 @@ class NavigationBar extends React.PureComponent {
                   </NavLink>
                 </li>
               )}
+              <li className="nav-item">
+                <NavLink exact isActive={this.isLinkActive} className="nav-link" to="/contact-us">
+                  <i className="fa fa-envelope" aria-hidden="true" />
+                  <span>Contact Us</span>
+                </NavLink>
+              </li>
               {!this.props.loginStatus && (
                 <li className="nav-item">
                   <NavLink className="nav-link" to="#" onClick={this.login}>
-                    <i className="fa fa-sign-in" aria-hidden="true" /> Login
+                    <i className="fa fa-sign-in" aria-hidden="true" /> Signin / Signup
                   </NavLink>
                 </li>
               )}

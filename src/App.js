@@ -2,7 +2,10 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { TransitionGroup } from 'react-transition-group';
 import { FadeCSSTransitionWrapper } from './AnimatedWrappers';
+import AboutUs from './components/AboutUs';
 import Alert from './components/Alert';
+import ContactUs from './components/ContactUs';
+import FooterBar from './components/FooterBar';
 import NavigationBar from './components/NavigationBar';
 import CallBack from './components/CallBack';
 import NewProduct from './components/products/NewProduct';
@@ -62,6 +65,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/callback" component={CallBack} />
                 <Route path="/home" component={Products} />
+                <Route path="/contact-us" component={ContactUs} />
+                <Route path="/about-us" component={AboutUs} />
                 <Route path="/products/new" component={NewProduct} />
                 <Route path="/products" exact component={Products} />
                 <Route
@@ -87,6 +92,7 @@ class App extends React.Component {
             </TransitionGroup>
           </div>
         </div>
+        <FooterBar {...this.props} />
       </div>
     );
   }

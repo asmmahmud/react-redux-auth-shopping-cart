@@ -1,23 +1,25 @@
 import React from 'react';
-import imageLoading from '../assets/loading.svg';
-class PreLoadImage extends React.Component {
+import imageLoading from '../assets/loading-spinner-54.gif';
+class PreLoadImage extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      imageSrc: imageLoading
+      imageSrc: imageLoading,
+      defaultClass: 'ajax-loader-sm'
     };
   }
   componentDidMount() {
-    const image = new Image(768, 768);
+    const image = new Image();
     image.onload = () => {
       this.setState({
-        imageSrc: image.src
+        imageSrc: image.src,
+        defaultClass: this.props.className
       });
     };
     image.src = this.props.src;
   }
   render() {
-    return <img src={this.state.imageSrc} className={this.props.className} alt={this.props.alt} />;
+    return <img src={this.state.imageSrc} className={this.state.defaultClass} alt={this.props.alt} />;
   }
 }
 

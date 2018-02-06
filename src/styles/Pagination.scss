@@ -1,0 +1,8 @@
+@import './_variable.scss';
+button.page-link.active {
+  background-color: $color4;
+  cursor: not-allowed;
+}
+.pagination {
+  margin-bottom: 0;
+}

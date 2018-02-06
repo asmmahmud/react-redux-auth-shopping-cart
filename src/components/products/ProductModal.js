@@ -5,7 +5,7 @@ import { API_DOMAIN } from '../../config';
 import '../../styles/productModal.scss';
 import PreLoadImage from '../PreLoadImage';
 
-export default class ProductModal extends React.Component {
+export default class ProductModal extends React.PureComponent {
   constructor() {
     super();
     this.addToCart = this.addToCart.bind(this);
